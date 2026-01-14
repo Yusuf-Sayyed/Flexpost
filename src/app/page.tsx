@@ -1,113 +1,68 @@
 'use client';
-import { TwitterPost } from '@/components/templates/TwitterPost';
-import { EditorControls } from '@/components/editor/EditorControls';
-import { Hero } from '../components/layout/Hero'; // <--- Import Hero
-import { toPng } from 'html-to-image';
-import { Download, RefreshCw, Sparkles } from 'lucide-react';
+
+import { Hero } from '@/components/layout/Hero';
 import { usePostStore } from '@/store/usePostStore';
+import { cn } from '@/lib/utils';
+import { Play } from 'lucide-react';
 
 export default function Home() {
-  const reset = usePostStore((state) => state.reset);
-
-  const handleDownload = async () => {
-    const node = document.getElementById('tweet-canvas');
-    if (!node) return;
-
-    const dataUrl = await toPng(node, {
-      quality: 1.0,
-      pixelRatio: 2,
-    });
-
-    const link = document.createElement('a');
-    link.download = 'flexpost-mockup.png';
-    link.href = dataUrl;
-    link.click();
-  };
+  const { globalTheme } = usePostStore();
+  const isGlobalDark = globalTheme === 'dark';
 
   return (
-    // Main wrapper
-    <main className="min-h-screen bg-slate-50">
-
-      {/* 1. HERO SECTION (Top of page) */}
+    <main
+      className={cn(
+        "min-h-screen transition-colors duration-300 ease-in-out selection:bg-blue-500/30",
+        isGlobalDark ? "bg-[#171717]" : "bg-[#EAF2FF]"
+      )}
+    >
+      {/* 1. Hero Section */}
       <Hero />
 
-      {/* 2. DESIGN STUDIO SECTION */}
-      {/* Added id="design-studio" for the scroll anchor */}
-      <section id="design-studio" className="py-20 px-4 sm:px-6 lg:px-8 border-t border-slate-200/60 bg-white/50">
+      {/* 2. Video Demo Section */}
+      <section className="pb-32 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto">
 
-        <div className="max-w-[1400px] mx-auto">
+          <div className="text-center mb-12">
+            <h2 className={cn("text-3xl font-bold tracking-tight mb-4", isGlobalDark ? "text-white" : "text-slate-900")}>
+              See it in Action
+            </h2>
+            <p className={cn("text-lg", isGlobalDark ? "text-slate-400" : "text-slate-500")}>
+              Watch how easy it is to create viral-ready mockups.
+            </p>
+          </div>
 
-          {/* Main Grid Layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          {/* Video Container Frame */}
+          <div className={cn(
+            "relative aspect-video w-full rounded-2xl overflow-hidden border shadow-2xl group cursor-pointer",
+            isGlobalDark
+              ? "bg-slate-900 border-white/10 shadow-black/50"
+              : "bg-white border-white/50 shadow-blue-900/10"
+          )}>
 
-            {/* --- LEFT COLUMN: Settings Panel (Sticky) --- */}
-            <div className="lg:col-span-4 space-y-6 lg:sticky lg:top-24 z-10">
-              <div className="space-y-2 mb-2">
-                 <h2 className="text-xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
-                   <Sparkles className="text-blue-500" size={20} />
-                   Design Studio
-                 </h2>
-                 <p className="text-sm text-slate-500">Customize appearance and identity.</p>
+            {/* Placeholder Background (Replace this with your <video> or <iframe>) */}
+            <div className="absolute inset-0 bg-gradient-to-tr from-blue-900/20 to-purple-900/20 flex items-center justify-center">
+
+              {/* Play Button */}
+              <div className="w-20 h-20 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center border border-white/20 transition-transform duration-300 group-hover:scale-110 group-hover:bg-white/20">
+                <Play size={32} className="text-white ml-1 fill-white" />
               </div>
 
-              {/* The Controls Component */}
-              <EditorControls />
-
-              <div className="pt-4 text-center lg:text-left">
-                 <p className="text-xs text-slate-400 font-medium">
-                   FlexPost Beta v1.0
-                 </p>
-              </div>
             </div>
 
-            {/* --- RIGHT COLUMN: The Canvas --- */}
-            <div className="lg:col-span-8">
-
-              {/* The "Canvas" Container */}
-              <div className="relative min-h-[600px] w-full bg-white rounded-3xl border border-slate-200 shadow-sm flex flex-col items-center justify-center p-8 lg:p-12 overflow-hidden">
-
-                {/* Dot Pattern Background */}
-                <div className="absolute inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-60 pointer-events-none" />
-
-                {/* The Tweet Component */}
-                <div className="relative z-10 scale-[0.85] sm:scale-100 transition-transform duration-200">
-                  <TwitterPost id="tweet-canvas" />
-                </div>
-
-                {/* Floating Action Bar */}
-                <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex items-center gap-3 bg-white/90 backdrop-blur-md p-2 pl-3 rounded-full border border-slate-200 shadow-xl shadow-slate-200/40">
-
-                  <button
-                    onClick={reset}
-                    className="flex items-center justify-center p-2.5 text-slate-500 hover:text-red-500 hover:bg-red-50 rounded-full transition-colors"
-                    title="Reset All"
-                  >
-                    <RefreshCw size={18} />
-                  </button>
-
-                  <div className="w-px h-6 bg-slate-200" />
-
-                  <button
-                    onClick={handleDownload}
-                    className="flex items-center gap-2 px-5 py-2.5 text-sm font-bold text-white bg-slate-900 rounded-full hover:bg-black hover:scale-105 active:scale-95 transition-all"
-                  >
-                    <Download size={16} />
-                    <span>Download PNG</span>
-                  </button>
-
-                </div>
-
-              </div>
-
-              <p className="text-center text-xs text-slate-400 mt-4">
-                Mockup preview · Not a real post · Generated with FlexPost
-              </p>
-
-            </div>
+            {/* Optional: Add actual video tag here */}
+            {/* <video src="/demo.mp4" controls className="w-full h-full object-cover" /> */}
 
           </div>
+
         </div>
       </section>
+
+      {/* Simple Footer */}
+      <footer className={cn("py-12 border-t text-center text-sm", isGlobalDark ? "border-white/5 text-slate-500" : "border-slate-200/60 text-slate-400")}>
+        <p>© 2024 FlexPost. Built for creators.</p>
+      </footer>
+
     </main>
   );
 }
