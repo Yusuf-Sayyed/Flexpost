@@ -30,7 +30,7 @@ export const EditorControls = () => {
     >
 
       {/* Header */}
-      <div className={cn(
+      {/* <div className={cn(
         "mb-6 flex items-center gap-2 border-b pb-4",
         isGlobalDark ? "border-white/10" : "border-slate-100"
       )}>
@@ -39,9 +39,9 @@ export const EditorControls = () => {
           "text-sm font-bold uppercase tracking-wider",
           isGlobalDark ? "text-slate-200" : "text-slate-900"
         )}>
-          Post Settings
+          Editor Controls
         </h3>
-      </div>
+      </div> */}
 
       <div className="space-y-6">
 

@@ -3,7 +3,7 @@
 import { TwitterPost } from '@/components/templates/TwitterPost';
 import { EditorControls } from '@/components/editor/EditorControls';
 import { toPng } from 'html-to-image';
-import { Download, RefreshCw, Sparkles, ChevronLeft, Layout } from 'lucide-react';
+import { Download, RefreshCw, Sparkles, ChevronLeft, Layout, SettingsIcon } from 'lucide-react';
 import { usePostStore } from '@/store/usePostStore';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
@@ -75,9 +75,9 @@ export default function CreatePage() {
           <div className="space-y-6 pb-0">
             {/* Header */}
             <div className="space-y-1">
-              <div className="flex items-center gap-3 mb-2">
-                <div className={cn("p-2 rounded-xl", isGlobalDark ? " text-blue-400" : " text-neutral-900 shadow-lg shadow-blue-500/30")}>
-                  <Layout size={20} />
+              <div className="flex items-center">
+                <div className={cn("p-2 rounded-xl", isGlobalDark ? " text-neutral-400" : " text-neutral-900")}>
+                  <SettingsIcon size={20} />
                 </div>
                 <h1 className={cn("text-xl font-bold tracking-tight", isGlobalDark ? "text-white" : "text-slate-900")}>
                   Settings
