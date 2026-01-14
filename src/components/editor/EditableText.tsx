@@ -4,17 +4,19 @@ import TextareaAutosize from 'react-textarea-autosize';
 interface EditableTextProps {
   value: string;
   onChange: (val: string) => void;
-  onBlur?: () => void; // <--- NEW PROP
+  onBlur?: () => void;
+  onPaste?: (e: React.ClipboardEvent<HTMLTextAreaElement>) => void;
   className?: string;
   placeholder?: string;
 }
 
-export const EditableText = ({ value, onChange, onBlur, className, placeholder }: EditableTextProps) => {
+export const EditableText = ({ value, onChange, onBlur, onPaste, className, placeholder }: EditableTextProps) => {
   return (
     <TextareaAutosize
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      onBlur={onBlur} // <--- Pass it here
+      onBlur={onBlur}
+      onPaste={onPaste}
       placeholder={placeholder}
       className={cn(
         "bg-transparent resize-none outline-none overflow-hidden",

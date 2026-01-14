@@ -34,8 +34,8 @@ interface Actions {
 }
 
 const initialState: TwitterState = {
-  theme: 'dark',        // Default Card Theme
-  globalTheme: 'light', // Default App Theme (Added this)
+  theme: 'dark',
+  globalTheme: 'light',
   verifiedType: 'blue',
   displayName: 'Yusuf',
   username: 'Yusuf_SDEV',

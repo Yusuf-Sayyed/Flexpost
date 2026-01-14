@@ -30,7 +30,6 @@ export const EditableImage = ({ src, onChange, className, isAvatar }: EditableIm
       onClick={() => fileInputRef.current?.click()}
       className={cn(
         "relative group cursor-pointer overflow-hidden bg-gray-100 flex items-center justify-center",
-        "hover:ring-2 hover:ring-blue-400 transition-all",
         isAvatar ? "rounded-full" : "rounded-2xl", // rounded-2xl matches Twitter modern radius
         className
       )}
@@ -51,10 +50,10 @@ export const EditableImage = ({ src, onChange, className, isAvatar }: EditableIm
           {!isAvatar && (
             <button
               onClick={handleRemove}
-              className="absolute top-2 right-2 bg-black/50 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/70"
+              className="absolute top-2 cursor-pointer right-2 bg-black/50 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/70"
               title="Remove image"
             >
-              <X size={14} />
+              <X size={20} />
             </button>
           )}
         </>

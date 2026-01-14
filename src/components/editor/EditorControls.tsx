@@ -52,39 +52,50 @@ export const EditorControls = () => {
           </label>
 
           {/* Card Theme Toggle */}
-          <button
-            onClick={state.toggleTheme}
-            className={cn(
-              "group flex w-full items-center justify-between rounded-xl border px-4 py-3 text-sm font-medium transition-all hover:shadow-md",
-              // Active State (Dark Mode Card)
-              isCardDark
-                ? (isGlobalDark
-                    ? "border-slate-700 bg-slate-800 text-white hover:border-neutral-700"
-                    : "border-slate-800 bg-slate-900 text-white hover:bg-slate-800")
-                // Inactive State (Light Mode Card)
-                : (isGlobalDark
-                    ? "bg-white/5 border-white/10 text-slate-300 hover:border-neutral-800 hover:text-white hover:bg-white/10"
-                    : "bg-white border-slate-200 text-slate-600 hover:border-neutral-100 hover:text-slate-900")
-            )}
-          >
-            <div className="flex items-center gap-3">
-              {isCardDark ? <Moon size={18} /> : <Sun size={18} />}
-              <span>{isCardDark ? "Dark Mode" : "Light Mode"}</span>
-            </div>
+<div
+  className={cn(
+    "group flex w-full items-center justify-between rounded-xl border px-4 py-3 text-sm font-medium transition-all shadow-md cursor-default",
+    isCardDark
+      ? isGlobalDark
+        ? "bg-white/5 border-white/10 text-slate-300"
+        : "bg-white border-slate-200 text-slate-600"
+      : isGlobalDark
+        ? "bg-white/5 border-white/10 text-slate-300 hover:border-neutral-700 hover:text-white hover:bg-white/10"
+        : "bg-white border-slate-200 text-slate-600 hover:border-neutral-100 hover:text-slate-900"
+      )}
+>
+  {/* Left content (NON clickable) */}
+  <div className="flex items-center gap-3 pointer-events-none">
+    {isCardDark ? <Moon size={18} /> : <Sun size={18} />}
+    <span>{isCardDark ? "Dark Mode" : "Light Mode"}</span>
+  </div>
 
-            {/* Toggle Switch Visual */}
-            <div className={cn(
-              "h-5 w-9 rounded-full p-0.5 transition-colors duration-300 flex items-center",
-              isCardDark
-                ? (isGlobalDark ? "bg-blue-500" : "bg-slate-700")
-                : "bg-neutral-500"
-            )}>
-              <div className={cn(
-                "h-4 w-4 rounded-full bg-white shadow-sm transition-transform duration-300",
-                isCardDark ? "translate-x-4" : "translate-x-0"
-              )} />
-            </div>
-          </button>
+  {/* Toggle Switch (ONLY clickable area) */}
+  <button
+    type="button"
+    onClick={(e) => {
+      e.stopPropagation(); // 🚨 critical
+      state.toggleTheme();
+    }}
+    className={cn(
+      "h-5 w-9 rounded-full p-0.5 transition-colors duration-300 flex items-center cursor-pointer",
+      isCardDark
+        ? isGlobalDark
+          ? "bg-blue-500"
+          : "bg-slate-700"
+        : "bg-neutral-500"
+    )}
+    aria-label="Toggle card theme"
+  >
+    <div
+      className={cn(
+        "h-4 w-4 rounded-full bg-white shadow-sm transition-transform duration-300",
+        isCardDark ? "translate-x-4" : "translate-x-0"
+      )}
+    />
+  </button>
+</div>
+
         </div>
 
         {/* --- SECTION 2: IDENTITY --- */}
@@ -98,7 +109,7 @@ export const EditorControls = () => {
             <button
               onClick={state.toggleVerified}
               className={cn(
-                "group flex w-full items-center justify-between rounded-xl border px-4 py-3 text-sm font-medium transition-all hover:shadow-md",
+                "group flex w-full items-center justify-between rounded-xl border px-4 py-3 text-sm font-medium transition-all shadow-md",
                 state.isVerified
                   // Active (Blue)
                   ? (isGlobalDark
@@ -126,7 +137,7 @@ export const EditorControls = () => {
               <button
                 onClick={state.toggleVerifiedType}
                 className={cn(
-                  "flex w-full items-center gap-3 rounded-lg border px-4 py-2.5 text-sm font-medium transition-all hover:shadow-sm",
+                  "flex w-full items-center gap-3 rounded-lg border px-4 py-2.5 text-sm font-medium transition-all shadow-sm",
                   state.verifiedType === 'yellow'
                     // Active Yellow
                     ? (isGlobalDark
@@ -148,7 +159,7 @@ export const EditorControls = () => {
           <button
             onClick={() => state.updateField('customBadgeUrl', state.customBadgeUrl ? null : 'https://placehold.co/20x20/orange/white')}
             className={cn(
-              "flex w-full items-center justify-between rounded-xl border px-4 py-3 text-sm font-medium transition-all hover:shadow-md",
+              "flex w-full items-center justify-between rounded-xl border px-4 py-3 text-sm font-medium transition-all shadow-md",
               state.customBadgeUrl
                 // Active
                 ? (isGlobalDark
@@ -177,7 +188,7 @@ export const EditorControls = () => {
           <button
             onClick={() => state.updateField('postImageUrl', state.postImageUrl ? null : 'https://via.placeholder.com/600x400')}
             className={cn(
-              "flex w-full items-center justify-between rounded-xl border px-4 py-3 text-sm font-medium transition-all hover:shadow-md",
+              "flex w-full items-center justify-between rounded-xl border px-4 py-3 text-sm font-medium transition-all shadow-md",
               state.postImageUrl
                 // Active (Red)
                 ? (isGlobalDark
@@ -204,7 +215,6 @@ export const EditorControls = () => {
             )}
           </button>
         </div>
-
       </div>
     </div>
   );
