@@ -14,6 +14,7 @@ interface TwitterState {
   postImageUrl: string | null
   showImage: boolean // 👈 1. Added this type
   customBadgeUrl: string | null
+  showCustomBadge: boolean
   isVerified: boolean
   stats: {
     views: string
@@ -47,6 +48,7 @@ const initialState: TwitterState = {
   postImageUrl: null,
   showImage: false,
   customBadgeUrl: null,
+  showCustomBadge: false,
   isVerified: false,
   stats: {
     views: '10',
@@ -79,6 +81,6 @@ export const usePostStore = create<TwitterState & Actions>()(
 
       reset: () => set(initialState)
     }),
-    { name: 'social-mockup-storage' }
+    { name: 'flexpost storage' }
   )
 )

@@ -1,3 +1,5 @@
+'use client';
+
 import { usePostStore } from '@/store/usePostStore';
 import {
   BadgeCheck,
@@ -22,27 +24,11 @@ export const EditorControls = () => {
     <div
       className={cn(
         "w-full max-w-full rounded-2xl border p-5 shadow-sm transition-all duration-300",
-        // 2. Adapt Container Background
         isGlobalDark
           ? "bg-[#1F1F1F] border-white/10 shadow-black/20"
           : "bg-white border-slate-200 shadow-sm"
       )}
     >
-
-      {/* Header */}
-      {/* <div className={cn(
-        "mb-6 flex items-center gap-2 border-b pb-4",
-        isGlobalDark ? "border-white/10" : "border-slate-100"
-      )}>
-        <div className="h-2 w-2 rounded-full bg-blue-500" />
-        <h3 className={cn(
-          "text-sm font-bold uppercase tracking-wider",
-          isGlobalDark ? "text-slate-200" : "text-slate-900"
-        )}>
-          Editor Controls
-        </h3>
-      </div> */}
-
       <div className="space-y-6">
 
         {/* --- SECTION 1: APPEARANCE --- */}
@@ -52,50 +38,44 @@ export const EditorControls = () => {
           </label>
 
           {/* Card Theme Toggle */}
-<div
-  className={cn(
-    "group flex w-full items-center justify-between rounded-xl border px-4 py-3 text-sm font-medium transition-all shadow-md cursor-default",
-    isCardDark
-      ? isGlobalDark
-        ? "bg-white/5 border-white/10 text-slate-300"
-        : "bg-white border-slate-200 text-slate-600"
-      : isGlobalDark
-        ? "bg-white/5 border-white/10 text-slate-300 hover:border-neutral-700 hover:text-white hover:bg-white/10"
-        : "bg-white border-slate-200 text-slate-600 hover:border-neutral-100 hover:text-slate-900"
-      )}
->
-  {/* Left content (NON clickable) */}
-  <div className="flex items-center gap-3 pointer-events-none">
-    {isCardDark ? <Moon size={18} /> : <Sun size={18} />}
-    <span>{isCardDark ? "Dark Mode" : "Light Mode"}</span>
-  </div>
+          <div
+            className={cn(
+              "group flex w-full items-center justify-between rounded-xl border px-4 py-3 text-sm font-medium transition-all shadow-md cursor-default",
+              isCardDark
+                ? isGlobalDark
+                  ? "bg-white/5 border-white/10 text-slate-300"
+                  : "bg-white border-slate-200 text-slate-600"
+                : isGlobalDark
+                  ? "bg-white/5 border-white/10 text-slate-300 hover:border-neutral-700 hover:text-white hover:bg-white/10"
+                  : "bg-white border-slate-200 text-slate-600 hover:border-neutral-100 hover:text-slate-900"
+            )}
+          >
+            <div className="flex items-center gap-3 pointer-events-none">
+              {isCardDark ? <Moon size={18} /> : <Sun size={18} />}
+              <span>{isCardDark ? "Dark Mode" : "Light Mode"}</span>
+            </div>
 
-  {/* Toggle Switch (ONLY clickable area) */}
-  <button
-    type="button"
-    onClick={(e) => {
-      e.stopPropagation(); // 🚨 critical
-      state.toggleTheme();
-    }}
-    className={cn(
-      "h-5 w-9 rounded-full p-0.5 transition-colors duration-300 flex items-center cursor-pointer",
-      isCardDark
-        ? isGlobalDark
-          ? "bg-blue-500"
-          : "bg-slate-700"
-        : "bg-neutral-500"
-    )}
-    aria-label="Toggle card theme"
-  >
-    <div
-      className={cn(
-        "h-4 w-4 rounded-full bg-white shadow-sm transition-transform duration-300",
-        isCardDark ? "translate-x-4" : "translate-x-0"
-      )}
-    />
-  </button>
-</div>
-
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                state.toggleTheme();
+              }}
+              className={cn(
+                "h-5 w-9 rounded-full p-0.5 transition-colors duration-300 flex items-center cursor-pointer",
+                isCardDark
+                  ? isGlobalDark ? "bg-blue-500" : "bg-slate-700"
+                  : "bg-neutral-500"
+              )}
+            >
+              <div
+                className={cn(
+                  "h-4 w-4 rounded-full bg-white shadow-sm transition-transform duration-300",
+                  isCardDark ? "translate-x-4" : "translate-x-0"
+                )}
+              />
+            </button>
+          </div>
         </div>
 
         {/* --- SECTION 2: IDENTITY --- */}
@@ -111,18 +91,14 @@ export const EditorControls = () => {
               className={cn(
                 "group flex w-full items-center justify-between rounded-xl border px-4 py-3 text-sm font-medium transition-all shadow-md",
                 state.isVerified
-                  // Active (Blue)
-                  ? (isGlobalDark
-                      ? "text-blue-500"
-                      : " text-blue-500")
-                  // Inactive
+                  ? "text-blue-500 border-blue-500/30 bg-blue-500/10"
                   : (isGlobalDark
-                      ? "bg-white/5 border-white/10 text-slate-300 hover:border-neutral-700 hover:text-white hover:bg-white/10"
-                      : "bg-white border-slate-200 text-slate-600 hover:border-neutral-100 hover:text-slate-900")
+                    ? "bg-white/5 border-white/10 text-slate-300 hover:border-neutral-700 hover:text-white hover:bg-white/10"
+                    : "bg-white border-slate-200 text-slate-600 hover:border-neutral-100 hover:text-slate-900")
               )}
             >
               <div className="flex items-center gap-3">
-                <BadgeCheck size={18} className={state.isVerified ? "fill-none" : ""} />
+                <BadgeCheck size={18} className={state.isVerified ? "fill-current text-blue-500" : ""} />
                 <span>Verified Badge</span>
               </div>
               {state.isVerified ? <CheckCircle2 size={18} /> : <div className={cn("h-4 w-4 rounded-full border", isGlobalDark ? "border-slate-600" : "border-slate-300")} />}
@@ -130,23 +106,21 @@ export const EditorControls = () => {
 
             {/* Sub-option: Color */}
             <div className={cn(
-                "overflow-hidden transition-all duration-300 ease-in-out pl-4 border-l-2",
-                isGlobalDark ? "border-white/10" : "border-slate-100",
-                state.isVerified ? "max-h-20 opacity-100 mt-1" : "max-h-0 opacity-0 mt-0"
+              "overflow-hidden transition-all duration-300 ease-in-out pl-4 border-l-2",
+              isGlobalDark ? "border-white/10" : "border-slate-100",
+              state.isVerified ? "max-h-20 opacity-100 mt-1" : "max-h-0 opacity-0 mt-0"
             )}>
               <button
                 onClick={state.toggleVerifiedType}
                 className={cn(
                   "flex w-full items-center gap-3 rounded-lg border px-4 py-2.5 text-sm font-medium transition-all shadow-sm",
                   state.verifiedType === 'yellow'
-                    // Active Yellow
                     ? (isGlobalDark
-                        ? "border-yellow-500/50 bg-yellow-500/20 text-yellow-200 hover:bg-yellow-500/30"
-                        : "border-yellow-200 bg-yellow-50 text-yellow-700 hover:bg-yellow-100")
-                    // Active Blue (Alternative)
+                      ? "border-yellow-500/50 bg-yellow-500/20 text-yellow-200 hover:bg-yellow-500/30"
+                      : "border-yellow-200 bg-yellow-50 text-yellow-700 hover:bg-yellow-100")
                     : (isGlobalDark
-                        ? "border-sky-500/50 bg-blue-400 text-black hover:bg-blue-500"
-                        : "border-sky-200 bg-blue-400 text-neutral-100 hover:bg-blue-500")
+                      ? "border-sky-500/50 bg-blue-400 text-black hover:bg-blue-500"
+                      : "border-sky-200 bg-blue-400 text-neutral-100 hover:bg-blue-500")
                 )}
               >
                 <Palette size={16} />
@@ -155,27 +129,27 @@ export const EditorControls = () => {
             </div>
           </div>
 
-          {/* Custom Badge */}
+          {/* 👇 UPDATE 1: Custom Badge Logic */}
           <button
-            onClick={() => state.updateField('customBadgeUrl', state.customBadgeUrl ? null : 'https://placehold.co/20x20/orange/white')}
+          onClick={() => state.updateField('showCustomBadge', !state.showCustomBadge)}
             className={cn(
               "flex w-full items-center justify-between rounded-xl border px-4 py-3 text-sm font-medium transition-all shadow-md",
-              state.customBadgeUrl
-                // Active
-                ? (isGlobalDark
-                    ? "border-blue-500 text-blue-500"
-                    : "border-blue-500 text-blue-500")
-                // Inactive
+              state.showCustomBadge
+                ? "border-blue-500 text-blue-500 bg-blue-500/10"
                 : (isGlobalDark
-                      ? "bg-white/5 border-white/10 text-slate-300 hover:border-neutral-700 hover:text-white hover:bg-white/10"
-                      : "bg-white border-slate-200 text-slate-600 hover:border-neutral-100 hover:text-slate-900")
+                  ? "bg-white/5 border-white/10 text-slate-300 hover:border-neutral-700 hover:text-white hover:bg-white/10"
+                  : "bg-white border-slate-200 text-slate-600 hover:border-neutral-100 hover:text-slate-900")
             )}
           >
             <div className="flex items-center gap-3">
               <Stamp size={18} />
               <span>Custom Icon</span>
             </div>
-            {state.customBadgeUrl && <span className={cn("text-[10px] px-2 py-0.5 rounded font-bold uppercase tracking-wider", isGlobalDark ? "bg-blue-200 text-blue-500" : "bg-blue-200 text-blue-500")}>Active</span>}
+            {state.showCustomBadge && (
+               <span className={cn("text-[10px] px-2 py-0.5 rounded font-bold uppercase tracking-wider bg-blue-500 text-white")}>
+                 Active
+               </span>
+            )}
           </button>
         </div>
 
@@ -185,30 +159,28 @@ export const EditorControls = () => {
             Media
           </label>
 
+          {/* 👇 UPDATE 2: Post Image Logic */}
           <button
             onClick={() => state.updateField('showImage', !state.showImage)}
             className={cn(
               "flex w-full items-center justify-between rounded-xl border px-4 py-3 text-sm font-medium transition-all shadow-md",
               state.showImage
-                // Active (Red)
-                ? (isGlobalDark
-                    ? "border-red-500/50 text-red-700"
-                    : "border-red-200 bg-red-50 text-red-700")
-                // Inactive
+                ? "border-blue-500 text-blue-500 bg-blue-500/10"
                 : (isGlobalDark
-                      ? "bg-white/5 border-white/10 text-slate-300 hover:border-neutral-700 hover:text-white hover:bg-white/10"
-                      : "bg-white border-slate-200 text-slate-600 hover:border-neutral-100 hover:text-slate-900")
+                  ? "bg-white/5 border-white/10 text-slate-300 hover:border-neutral-700 hover:text-white hover:bg-white/10"
+                  : "bg-white border-slate-200 text-slate-600 hover:border-neutral-100 hover:text-slate-900")
             )}
           >
             <div className="flex items-center gap-3">
               <ImageIcon size={18} />
               <span>Post Image</span>
             </div>
-            {state.postImageUrl ? (
-                <div className="flex items-center gap-1 text-red-500 text-xs font-bold">
-                    <XCircle size={14} /> Remove
-                </div>
+
+            {state.showImage ? (
+                // If active, show checkmark
+               <CheckCircle2 size={18} className="text-blue-500" />
             ) : (
+                // If inactive, show "Add" text
                 <div className="flex items-center gap-1 text-slate-400 text-xs font-bold">
                     Add
                 </div>

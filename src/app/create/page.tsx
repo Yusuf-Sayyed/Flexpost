@@ -18,6 +18,8 @@ export default function CreatePage() {
     avatarUrl,
     displayName,
     username,
+    customBadgeUrl,
+    showCustomBadge,
     content,
     postImageUrl,
     showImage
@@ -39,17 +41,22 @@ export default function CreatePage() {
       toast.error("Please add a Username!");
       return;
     }
+    // 👇 Robust Check for Custom Badge
+    // If toggle is ON, ensure URL is a non-empty string
+    if (showCustomBadge && (!customBadgeUrl || customBadgeUrl.length === 0)) {
+      toast.error("Please upload a custom badge or disable the option!");
+      return;
+    }
     if (!content) {
       toast.error("The post content cannot be empty!");
       return;
     }
 
-    // 👇 This checks if toggle is ON (true) but Image is MISSING (null)
-    if (showImage && !postImageUrl) {
+    // 👇 Robust Check for Post Image
+    if (showImage && (!postImageUrl || postImageUrl.length === 0)) {
       toast.error("Please upload an image or disable the image option!");
       return;
     }
-
     const node = document.getElementById('tweet-canvas');
     if (!node) return;
 
