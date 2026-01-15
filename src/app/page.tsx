@@ -28,7 +28,7 @@ export default function Home() {
               See it in Action
             </h2>
             <p className={cn("text-lg", isGlobalDark ? "text-slate-400" : "text-slate-500")}>
-              Watch how easy it is to create viral-ready mockups.
+              Watch how easy it is to create mockups.
             </p>
           </div>
 
