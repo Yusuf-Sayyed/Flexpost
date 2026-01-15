@@ -186,7 +186,7 @@ export const EditorControls = () => {
           </label>
 
           <button
-            onClick={() => state.updateField('postImageUrl', state.postImageUrl ? null : 'https://via.placeholder.com/600x400')}
+            onClick={() => state.updateField('postImageUrl', state.postImageUrl ? null: 'Upload' )}
             className={cn(
               "flex w-full items-center justify-between rounded-xl border px-4 py-3 text-sm font-medium transition-all shadow-md",
               state.postImageUrl

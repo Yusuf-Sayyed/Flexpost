@@ -2,8 +2,8 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
 interface TwitterState {
-  theme: 'dark' | 'light'        // Controls the Tweet Card
-  globalTheme: 'dark' | 'light'  // Controls the App Background
+  theme: 'dark' | 'light'
+  globalTheme: 'dark' | 'light'
   verifiedType: 'blue' | 'yellow';
   displayName: string
   username: string
@@ -27,8 +27,8 @@ interface Actions {
   updateField: (field: keyof TwitterState, value: any) => void
   updateStat: (stat: keyof TwitterState['stats'], value: string) => void
   toggleVerified: () => void
-  toggleTheme: () => void        // Toggles Card Theme
-  toggleGlobalTheme: () => void  // Toggles App Theme
+  toggleTheme: () => void
+  toggleGlobalTheme: () => void
   toggleVerifiedType: () => void;
   reset: () => void
 }
@@ -68,11 +68,7 @@ export const usePostStore = create<TwitterState & Actions>()(
         })),
 
       toggleVerified: () => set((state) => ({ isVerified: !state.isVerified })),
-
-      // Toggles ONLY the Card
       toggleTheme: () => set((state) => ({ theme: state.theme === 'dark' ? 'light' : 'dark' })),
-
-      // Toggles ONLY the App Background (Added this implementation)
       toggleGlobalTheme: () => set((state) => ({ globalTheme: state.globalTheme === 'dark' ? 'light' : 'dark' })),
 
       toggleVerifiedType: () => set((state) => ({

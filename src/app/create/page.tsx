@@ -11,23 +11,31 @@ import { GridBackgroundDemo } from '@/components/ui/grid-background-demo';
 import { toast } from 'sonner';
 
 export default function CreatePage() {
-  const { reset, globalTheme, displayName, username, content, postImageUrl } = usePostStore();
+  const { reset, globalTheme, avatarUrl, displayName, username, content, postImageUrl } = usePostStore();
   const isGlobalDark = globalTheme === 'dark';
 
   const handleDownload = async () => {
-    if (!displayName || !username) {
-      toast.error("Please add a Name and Username!");
+
+    if (!avatarUrl) {
+      toast.error("Please upload a profile picture!");
+      return;
+    }
+    if (!displayName) {
+      toast.error("Please add a Name!");
+      return;
+    }
+    if (!username) {
+      toast.error("Please add a Username!");
       return;
     }
     if (!content) {
       toast.error("The post content cannot be empty!");
       return;
     }
-    if (!postImageUrl) {
-      toast.error("Please upload an image for the post!");
+    if (postImageUrl) {
+      toast.error("Please provide an Image URL or disable the image option.");
       return;
     }
-
     const node = document.getElementById('tweet-canvas');
     if (!node) return;
 
@@ -41,6 +49,7 @@ export default function CreatePage() {
       link.click();
       toast.success("Image downloaded successfully!", { id: toastId });
     } catch (err) {
+      console.error(err); // Log the actual error to console for debugging
       toast.error("Something went wrong during export.", { id: toastId });
     }
   };
@@ -63,7 +72,7 @@ export default function CreatePage() {
           </div>
           <span>Back</span>
         </Link>
-        <span className={cn("text-sm font-bold tracking-widest uppercase opacity-40 hidden sm:block", isGlobalDark ? "text-white" : "text-slate-900")}>Studio</span>
+        <span className={cn("text-sm font-bold tracking-widest uppercase opacity-40 hidden sm:block", isGlobalDark ? "text-white" : "text-slate-900")}>FlexPost Studio</span>
         <div className="w-20" />
       </nav>
 

@@ -53,9 +53,7 @@ export const TwitterPost = ({ id }: { id: string }) => {
                 id={id}
                 className={cn(
                     "flex justify-center items-center rounded-2xl overflow-hidden",
-                    // 👇 CRITICAL FIX: Use p-2 on mobile.
-                    // This allows the 600px card to be scaled up larger without hitting screen edges.
-                    "p-2 sm:p-12",
+                    "min-[320px]:p-2 min-[375px]:p-10 sm:p-12",
                     isDark ? "bg-[#171717]" : "bg-[#EAF2FF]"
                 )}
             >
@@ -64,7 +62,10 @@ export const TwitterPost = ({ id }: { id: string }) => {
                 <div
                     style={{ backgroundColor: isDark ? '#000000' : '#ffffff' }}
                     className={cn(
-                        "w-[600px] border sm:rounded-2xl p-6 shadow-xl overflow-hidden relative",
+                        // 👇 UPDATED LINE:
+                        // 1. w-[600px] applies to everything (including 320px screens)
+                        // 2. min-[375px]:w-[700px] overrides it for screens 375px and wider
+                        "min-[375px]:w-[650px] h-auto min-[320px]:w-[600px] min-[425px]:w-[600px] border sm:rounded-2xl p-6 shadow-xl overflow-hidden relative",
                         isDark ? "border-white/10 ring-1 ring-white/5" : "border-slate-100 ring-1 ring-slate-900/5",
                         themeClasses.text
                     )}
@@ -200,7 +201,6 @@ export const TwitterPost = ({ id }: { id: string }) => {
 
                     {/* Footer */}
                     <div className="flex justify-between items-center text-gray-500 px-1">
-                        <div className="flex items-center gap-10">
                             <div className="flex items-center gap-2 group cursor-pointer">
                                 <MessageCircle size={18} className="group-hover:text-blue-400" />
                                 <EditableText value={state.stats.replies} onChange={(v) => state.updateStat('replies', v.replace(/\D/g, '').slice(0, 10))} onBlur={() => handleStatBlur('replies', state.stats.replies)} className="w-[7ch]" />
@@ -217,7 +217,6 @@ export const TwitterPost = ({ id }: { id: string }) => {
                                 <Bookmark size={18} className="group-hover:text-blue-400" />
                                 <EditableText value={state.stats.bookmarks} onChange={(v) => state.updateStat('bookmarks', v.replace(/\D/g, '').slice(0, 10))} onBlur={() => handleStatBlur('bookmarks', state.stats.bookmarks)} className="w-[7ch]" />
                             </div>
-                        </div>
                         <div className="flex items-center gap-2 group cursor-pointer">
                             <Share size={18} className="group-hover:text-blue-400" />
                         </div>
