@@ -87,7 +87,7 @@ export const Navbar = () => {
             className="flex items-center gap-2 bg-slate-900 text-white text-xs sm:text-sm font-medium px-3 sm:px-4 py-1.5 sm:py-2 rounded-full hover:bg-slate-800 hover:scale-105 active:scale-95 transition-all shadow-md ring-1 ring-slate-900/10"
           >
             <Sparkles size={14} />
-            <span>Generate</span>
+            <span>Create</span>
           </Link>
 
           {/* Mobile Menu Toggle Button */}
