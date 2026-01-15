@@ -58,10 +58,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Simple Footer */}
+      {/* Simple Footer
       <footer className={cn("py-12 border-t text-center text-sm", isGlobalDark ? "border-white/5 text-slate-500" : "border-slate-200/60 text-slate-400")}>
-        <p>© 2024 FlexPost. Built for creators.</p>
-      </footer>
+        <p>© 2026 FlexPost. Built for creators.</p>
+      </footer> */}
 
     </main>
   );
