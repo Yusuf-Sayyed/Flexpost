@@ -34,7 +34,7 @@ export const Footer = () => {
           <div className="space-y-4 max-w-sm flex flex-col items-center md:items-start text-center md:text-left">
             <Link href="/" className="flex items-center gap-2 group w-fit">
               <img
-                src={isDark ? "/d_logo.png" : "/l_logo.png"}
+                src={isDark ? "/dlogo.png" : "/llogo.png"}
                 alt="FlexPost Logo"
                 className="h-8 w-auto object-contain opacity-90 group-hover:opacity-100 transition-opacity"
               />

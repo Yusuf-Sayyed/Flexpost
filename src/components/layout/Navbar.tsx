@@ -33,7 +33,7 @@ export const Navbar = () => {
         <div className="flex items-center gap-3">
           <Link href="/" className="flex items-center gap-2 group">
             <img
-              src={isDark ? "/d_logo.png" : "/l_logo.png"}
+              src={isDark ? "/dlogo.png" : "/llogo.png"}
               alt="FlexPost Logo"
               className="h-8 w-auto object-contain transition-opacity duration-300"
             />
