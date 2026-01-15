@@ -54,7 +54,7 @@ export const Hero = () => {
           "text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed transition-colors",
           isDark ? "text-slate-400" : "text-slate-500"
         )}>
-          The fastest way to design beautiful social media posts for your presentations, pitch decks, and marketing materials. No design skills required.
+          The fastest way to create beautiful, verified mockups for social media. Designed for creators, developers, and founders.
         </p>
 
         {/* CTA Buttons */}
