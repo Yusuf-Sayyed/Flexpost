@@ -35,10 +35,10 @@ interface Actions {
 
 const initialState: TwitterState = {
   theme: 'dark',
-  globalTheme: 'light',
+  globalTheme: 'dark',
   verifiedType: 'blue',
-  displayName: 'Yusuf',
-  username: 'Yusuf_SDEV',
+  displayName: 'yusuf',
+  username: 'yusuf_sdev',
   content: 'gm\n\nNever stop hustling\n\nKeep trying and you will achieve it',
   timestamp: '8:13 AM',
   date: 'Jan 12, 2026',
