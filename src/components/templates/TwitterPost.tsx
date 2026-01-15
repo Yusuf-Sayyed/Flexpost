@@ -53,7 +53,9 @@ export const TwitterPost = ({ id }: { id: string }) => {
                 id={id}
                 className={cn(
                     "flex justify-center items-center rounded-2xl overflow-hidden",
-                    "p-8 sm:p-12", // Slightly reduced padding for mobile capture
+                    // 👇 CRITICAL FIX: Use p-2 on mobile.
+                    // This allows the 600px card to be scaled up larger without hitting screen edges.
+                    "p-2 sm:p-12",
                     isDark ? "bg-[#171717]" : "bg-[#EAF2FF]"
                 )}
             >
@@ -123,23 +125,22 @@ export const TwitterPost = ({ id }: { id: string }) => {
                             </div>
                         </div>
 
-                        {/* RIGHT SIDE: Grok Logo + Dots */}
+                        {/* Right Side: Grok + Dots */}
                         <div className="flex items-center gap-4 pt-1">
-                            {/* 👇 GROK LOGO ADDED HERE */}
                             <img
                                 src="/grok.png"
                                 alt="Grok"
                                 className={cn(
                                     "w-[22px] h-[22px] object-contain opacity-80",
-                                    isDark ? "invert" : "" // Invert color for dark mode
+                                    isDark ? "invert" : ""
                                 )}
                             />
-
-                        <div className={cn("cursor-pointer", themeClasses.subText)}>
-                            <MoreHorizontal size={20} />
+                            <div className={cn("cursor-pointer", themeClasses.subText)}>
+                                <MoreHorizontal size={20} />
+                            </div>
                         </div>
                     </div>
-                    </div>
+
                     {/* Content */}
                     <EditableText
                         value={state.content}
@@ -197,8 +198,9 @@ export const TwitterPost = ({ id }: { id: string }) => {
                         </div>
                     </div>
 
-                    {/* Footer - FIXED: Justify Between + Grouped Left Icons */}
+                    {/* Footer */}
                     <div className="flex justify-between items-center text-gray-500 px-1">
+                        <div className="flex items-center gap-10">
                             <div className="flex items-center gap-2 group cursor-pointer">
                                 <MessageCircle size={18} className="group-hover:text-blue-400" />
                                 <EditableText value={state.stats.replies} onChange={(v) => state.updateStat('replies', v.replace(/\D/g, '').slice(0, 10))} onBlur={() => handleStatBlur('replies', state.stats.replies)} className="w-[7ch]" />
@@ -215,10 +217,10 @@ export const TwitterPost = ({ id }: { id: string }) => {
                                 <Bookmark size={18} className="group-hover:text-blue-400" />
                                 <EditableText value={state.stats.bookmarks} onChange={(v) => state.updateStat('bookmarks', v.replace(/\D/g, '').slice(0, 10))} onBlur={() => handleStatBlur('bookmarks', state.stats.bookmarks)} className="w-[7ch]" />
                             </div>
+                        </div>
                         <div className="flex items-center gap-2 group cursor-pointer">
                             <Share size={18} className="group-hover:text-blue-400" />
                         </div>
-
                     </div>
                 </div>
             </div>
