@@ -31,7 +31,7 @@ export const Navbar = () => {
 
         {/* --- Left: Logo --- */}
         <div className="flex items-center gap-3">
-          <Link href="/" className="flex items-center gap-2 group">
+          <Link href="#" className="flex items-center gap-2 group">
             <img
               src={isDark ? "/dlogo.png" : "/llogo.png"}
               alt="FlexPost Logo"

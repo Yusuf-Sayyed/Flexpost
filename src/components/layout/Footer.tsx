@@ -32,7 +32,7 @@ export const Footer = () => {
 
           {/* --- Brand Info --- */}
           <div className="space-y-4 max-w-sm flex flex-col items-center md:items-start text-center md:text-left">
-            <Link href="/" className="flex items-center gap-2 group w-fit">
+            <Link href="#" className="flex items-center gap-2 group w-fit">
               <img
                 src={isDark ? "/dlogo.png" : "/llogo.png"}
                 alt="FlexPost Logo"
