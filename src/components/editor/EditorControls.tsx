@@ -186,10 +186,10 @@ export const EditorControls = () => {
           </label>
 
           <button
-            onClick={() => state.updateField('postImageUrl', state.postImageUrl ? null: 'Upload' )}
+            onClick={() => state.updateField('showImage', !state.showImage)}
             className={cn(
               "flex w-full items-center justify-between rounded-xl border px-4 py-3 text-sm font-medium transition-all shadow-md",
-              state.postImageUrl
+              state.showImage
                 // Active (Red)
                 ? (isGlobalDark
                     ? "border-red-500/50 text-red-700"

@@ -156,7 +156,7 @@ export const TwitterPost = ({ id }: { id: string }) => {
                     />
 
                     {/* Post Image */}
-                    {state.postImageUrl && (
+                    {state.showImage && (
                         <div className="mb-3 mt-3">
                             <EditableImage
                                 src={state.postImageUrl}

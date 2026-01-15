@@ -12,6 +12,7 @@ interface TwitterState {
   date: string
   avatarUrl: string | null
   postImageUrl: string | null
+  showImage: boolean // 👈 1. Added this type
   customBadgeUrl: string | null
   isVerified: boolean
   stats: {
@@ -44,6 +45,7 @@ const initialState: TwitterState = {
   date: 'Oct 6, 2003',
   avatarUrl: null,
   postImageUrl: null,
+  showImage: false,
   customBadgeUrl: null,
   isVerified: false,
   stats: {

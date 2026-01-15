@@ -11,11 +11,22 @@ import { GridBackgroundDemo } from '@/components/ui/grid-background-demo';
 import { toast } from 'sonner';
 
 export default function CreatePage() {
-  const { reset, globalTheme, avatarUrl, displayName, username, content, postImageUrl } = usePostStore();
+  // 👇 FIX: Added 'showImage' here so the validation below knows the toggle state
+  const {
+    reset,
+    globalTheme,
+    avatarUrl,
+    displayName,
+    username,
+    content,
+    postImageUrl,
+    showImage
+  } = usePostStore();
+
   const isGlobalDark = globalTheme === 'dark';
 
   const handleDownload = async () => {
-
+    // 1. Validation Checks
     if (!avatarUrl) {
       toast.error("Please upload a profile picture!");
       return;
@@ -32,10 +43,13 @@ export default function CreatePage() {
       toast.error("The post content cannot be empty!");
       return;
     }
-    if (postImageUrl) {
-      toast.error("Please provide an Image URL or disable the image option.");
+
+    // 👇 This checks if toggle is ON (true) but Image is MISSING (null)
+    if (showImage && !postImageUrl) {
+      toast.error("Please upload an image or disable the image option!");
       return;
     }
+
     const node = document.getElementById('tweet-canvas');
     if (!node) return;
 
@@ -49,7 +63,7 @@ export default function CreatePage() {
       link.click();
       toast.success("Image downloaded successfully!", { id: toastId });
     } catch (err) {
-      console.error(err); // Log the actual error to console for debugging
+      console.error(err);
       toast.error("Something went wrong during export.", { id: toastId });
     }
   };
@@ -61,7 +75,7 @@ export default function CreatePage() {
         isGlobalDark ? "bg-[#171717]" : "bg-[#EAF2FF]"
       )}
     >
-      {/* 1. HEADER */}
+      {/* HEADER */}
       <nav className={cn(
         "h-16 shrink-0 flex items-center justify-between px-6 border-b z-50",
         isGlobalDark ? "bg-[#171717] border-white/5" : "bg-[#EAF2FF] border-blue-100"
@@ -72,13 +86,12 @@ export default function CreatePage() {
           </div>
           <span>Back</span>
         </Link>
-        <span className={cn("text-sm font-bold tracking-widest uppercase opacity-40 hidden sm:block", isGlobalDark ? "text-white" : "text-slate-900")}>FlexPost Studio</span>
+        <span className={cn("text-sm font-bold tracking-widest uppercase opacity-40 hidden sm:block", isGlobalDark ? "text-white" : "text-slate-900")}>Studio</span>
         <div className="w-20" />
       </nav>
 
       <div className="flex-1 flex flex-col lg:flex-row overflow-hidden">
-
-        {/* 2. SIDEBAR (Desktop) */}
+        {/* SIDEBAR */}
         <aside className={cn(
           "w-full max-w-[400px] h-full overflow-y-auto border-r p-6 z-20 shrink-0 scrollbar-hide hidden lg:block",
           isGlobalDark ? "border-white/5 bg-[#171717]" : "border-blue-100/50 bg-[#EAF2FF]/50"
@@ -97,32 +110,28 @@ export default function CreatePage() {
           </div>
         </aside>
 
-        {/* 3. CANVAS */}
+        {/* CANVAS */}
         <div className="flex-1 h-full relative overflow-y-auto scrollbar-hide">
           <GridBackgroundDemo isDark={isGlobalDark} />
 
           <div className="min-h-full flex flex-col items-center p-2 sm:p-6 lg:p-12 relative z-10 py-8 lg:justify-center">
-
-            {/* --- MOBILE CONTROLS (TOP) --- */}
+            {/* Mobile Controls */}
             <div className="lg:hidden w-full max-w-[600px] mb-6 space-y-4 animate-in fade-in slide-in-from-top-10 duration-700 relative z-30">
                <div className="flex items-center gap-2 opacity-70 px-2">
                   <SettingsIcon size={14} className={isGlobalDark ? "text-white" : "text-slate-900"} />
                   <span className={cn("text-[10px] font-bold uppercase tracking-widest", isGlobalDark ? "text-white" : "text-slate-900")}>Editor Settings</span>
                </div>
-
                <div className={cn("p-1 rounded-3xl shadow-lg", isGlobalDark ? "bg-[#1F1F1F] border border-white/10" : "bg-white border border-white/40")}>
                  <EditorControls />
                </div>
             </div>
 
-            {/* --- TWEET CARD (SCALED) --- */}
-            {/* 👇 UPDATED SCALE: 0.5. Fits 600px into 308px. Safe for iPhone SE (320px). */}
+            {/* Tweet Card */}
             <div className="relative w-full flex justify-center origin-top transform-gpu scale-[0.5] sm:scale-[0.6] md:scale-[0.85] xl:scale-100 transition-transform duration-300">
               <TwitterPost id="tweet-canvas" />
             </div>
 
-            {/* --- ACTION BAR (BOTTOM) --- */}
-            {/* 👇 MARGIN ADJUSTED: mt-[-130px] creates the right overlap without covering text */}
+            {/* Action Bar */}
             <div className="flex justify-center w-full z-50 pointer-events-none">
               <div className={cn(
                 "mt-[-45px] sm:mt-[-60px] md:mt-8 flex items-center gap-2 sm:gap-3 backdrop-blur-xl p-1 pl-3 sm:p-1.5 sm:pl-4 rounded-2xl border shadow-2xl transition-all duration-300 hover:scale-105 pointer-events-auto",
@@ -130,34 +139,17 @@ export default function CreatePage() {
                   ? "bg-white/5 border-white/10 text-white shadow-black/40"
                   : "bg-white/80 border-white/60 text-slate-700 shadow-xl shadow-blue-900/5 ring-1 ring-white/50"
               )}>
-                <button
-                  onClick={reset}
-                  className="p-1.5 sm:p-2 rounded-full hover:bg-red-500/10 hover:text-red-500 transition-colors"
-                  title="Reset Canvas"
-                >
+                <button onClick={reset} className="p-1.5 sm:p-2 rounded-full hover:bg-red-500/10 hover:text-red-500 transition-colors" title="Reset Canvas">
                   <RefreshCw size={14} className="sm:w-4 sm:h-4" />
                 </button>
-
                 <div className={cn("w-px h-3 sm:h-4 opacity-20", isGlobalDark ? "bg-white" : "bg-black")} />
-
-                <button
-                  onClick={handleDownload}
-                  className={cn(
-                    "flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full transition-all shadow-lg",
-                    isGlobalDark
-                      ? "bg-white text-black hover:bg-blue-50 shadow-white/5"
-                      : "bg-slate-900 text-white hover:bg-black shadow-slate-900/20"
-                  )}
-                >
+                <button onClick={handleDownload} className={cn("flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full transition-all shadow-lg", isGlobalDark ? "bg-white text-black hover:bg-blue-50 shadow-white/5" : "bg-slate-900 text-white hover:bg-black shadow-slate-900/20")}>
                   <Download size={12} className="sm:w-3.5 sm:h-3.5" />
                   <span className="text-[10px] sm:text-xs font-bold">Export PNG</span>
                 </button>
               </div>
             </div>
-
-            {/* Spacer for bottom scrolling */}
             <div className="h-24 lg:hidden" />
-
           </div>
         </div>
       </div>
