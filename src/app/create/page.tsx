@@ -74,7 +74,7 @@ export default function CreatePage() {
           </div>
           <span>Back</span>
         </Link>
-        <span className={cn("text-sm font-bold tracking-widest uppercase opacity-40 hidden sm:block", isGlobalDark ? "text-white" : "text-slate-900")}>Studio</span>
+        <span className={cn("text-sm font-bold tracking-widest uppercase opacity-40 hidden sm:block", isGlobalDark ? "text-white" : "text-slate-900")}>FlexPost Studio</span>
         <div className="w-20" />
       </nav>
 
