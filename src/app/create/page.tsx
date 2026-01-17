@@ -88,17 +88,43 @@ export default function CreatePage() {
       )}
     >
       {/* HEADER */}
+ {/* HEADER */}
       <nav className={cn(
         "h-16 shrink-0 flex items-center justify-between px-6 border-b z-50",
         isGlobalDark ? "bg-[#171717] border-white/5" : "bg-[#EAF2FF] border-blue-100"
       )}>
-        <Link href="/" className={cn("flex items-center gap-2 text-sm font-semibold transition-all hover:opacity-70 group", isGlobalDark ? "text-slate-300" : "text-slate-600")}>
-          <div className={cn("p-1.5 rounded-full transition-colors group-hover:bg-slate-200/20", isGlobalDark ? "bg-white/5" : "bg-white border border-slate-200")}>
-            <ChevronLeft size={16} />
-          </div>
-          <span>Back</span>
-        </Link>
-        <span className={cn("text-sm font-bold tracking-widest uppercase opacity-40 hidden sm:block", isGlobalDark ? "text-white" : "text-slate-900")}>Studio</span>
+
+        {/* Left Side Container */}
+        <div className="flex items-center gap-2">
+
+            {/* 1. The Icon (Clickable Link) */}
+            <Link href="/" className="group">
+                <div className={cn(
+                    "p-1.5 rounded-full transition-colors",
+                    // 👇 Applied the specific hover animation styles
+                    isGlobalDark
+                        ? "text-neutral-500 bg-neutral-800 hover:text-slate-900 hover:bg-indigo-50"
+                        : "text-neutral-600 bg-slate-200 hover:text-neutral-300 hover:bg-neutral-900"
+                )}>
+                    <ChevronLeft size={16} />
+                </div>
+            </Link>
+
+            {/* 2. The Text (Not Clickable) */}
+            <span className={cn(
+                "hidden min-[768px]:inline text-sm font-semibold select-none",
+                isGlobalDark ? "text-neutral-500" : "text-neutral-600"
+            )}>
+                Back
+            </span>
+        </div>
+
+        {/* Center Title */}
+        <span className={cn("text-sm font-bold tracking-widest uppercase opacity-40 hidden sm:block", isGlobalDark ? "text-white" : "text-slate-900")}>
+            Studio
+        </span>
+
+        {/* Spacer for centering */}
         <div className="w-20" />
       </nav>
 

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Menu, Sparkles, Moon, Sun, X as CloseIcon } from 'lucide-react';
+import { Menu, Sparkles, Moon, Sun, X as CloseIcon, Github } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { usePostStore } from '@/store/usePostStore';
 import { usePathname } from 'next/navigation';
@@ -16,7 +16,9 @@ export const Navbar = () => {
   if (pathname === '/create') {
     return null;
   }
-
+  if (['/create', '/report', '/privacy', '/terms'].includes(pathname)) {
+    return null;
+  }
   return (
     <nav
       className={cn(
@@ -47,19 +49,31 @@ export const Navbar = () => {
         <div className="hidden md:flex items-center gap-6 absolute left-1/2 -translate-x-1/2">
           <NavLink href="#" isDark={isDark}>Templates</NavLink>
           <NavLink href="#" isDark={isDark}>Showcase</NavLink>
-          <NavLink href="#" isDark={isDark}>Pricing</NavLink>
         </div>
 
         {/* --- Right: Actions --- */}
         <div className="flex items-center gap-3">
-
+          {/* Github Star / Contribute Button */}
+          <Link
+            href="https://github.com/Yusuf-Sayyed/FlexPost" // Replace with your actual repo URL
+            target="_blank"
+            className={cn(
+              "hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full border transition-all text-xs font-medium",
+              isDark
+                ? "border-white/10 bg-white/5 text-white hover:bg-white/10 hover:text-white"
+                : "border-slate-200 bg-white text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+            )}
+          >
+            <Github size={14} />
+            <span>Star on GitHub</span>
+          </Link>
           <button
             onClick={toggleGlobalTheme}
             className={cn(
               "flex items-center justify-center w-8 h-8 rounded-full transition-colors",
               isDark
-                ? "text-slate-400 hover:text-white hover:bg-white/10"
-                : "text-slate-500 hover:text-slate-900 hover:bg-slate-100"
+            ? "text-neutral-500 hover:text-slate-900 hover:bg-indigo-50"
+            : "text-neutral-600 hover:text-neutral-300 hover:bg-neutral-900"
             )}
             title="Toggle Theme"
           >
@@ -118,7 +132,7 @@ export const Navbar = () => {
             target="_blank"
             className={cn("pt-2 border-t border-white/5 flex items-center gap-2 text-sm", isDark ? "text-slate-500 hover:text-white" : "text-slate-500 hover:text-black")}
           >
-             <XIcon size={16} /> <span>Follow on X</span>
+            <XIcon size={16} /> <span>Follow on X</span>
           </Link>
         </div>
       </div>
