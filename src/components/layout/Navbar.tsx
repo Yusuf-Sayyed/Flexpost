@@ -47,8 +47,8 @@ export const Navbar = () => {
 
         {/* --- Center: Desktop Navigation (Absolutely Centered) --- */}
         <div className="hidden md:flex items-center gap-6 absolute left-1/2 -translate-x-1/2">
-          <NavLink href="#" isDark={isDark}>Templates</NavLink>
-          <NavLink href="#" isDark={isDark}>Showcase</NavLink>
+          {/* <NavLink href="#" isDark={isDark}>Templates</NavLink>
+          <NavLink href="#" isDark={isDark}>Showcase</NavLink> */}
         </div>
 
         {/* --- Right: Actions --- */}
@@ -60,8 +60,8 @@ export const Navbar = () => {
             className={cn(
               "hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full border transition-all text-xs font-medium",
               isDark
-                ? "border-white/10 bg-white/5 text-white hover:bg-white/10 hover:text-white"
-                : "border-slate-200 bg-white text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                ? "border-white/10 bg-[#171717] text-white hover:bg-white/10 hover:text-white"
+                : "border-slate-200 bg-[#EAF2FF] text-slate-600 hover:bg-slate-50 hover:text-slate-900"
             )}
           >
             <Github size={14} />
@@ -87,8 +87,10 @@ export const Navbar = () => {
             href="https://x.com/yusuf_sdev"
             target="_blank"
             className={cn(
-              "transition-colors hidden sm:block",
-              isDark ? "text-slate-400 hover:text-white" : "text-slate-400 hover:text-slate-900"
+              "transition-colors block",
+              isDark
+                ? "text-neutral-500 hover:text-indigo-50"
+                : "text-neutral-600 hover:text-neutral-900"
             )}
             title="Follow on X"
           >
@@ -98,44 +100,47 @@ export const Navbar = () => {
           {/* Generate Button (Linked to /create) */}
           <Link
             href="/create"
-            className="flex items-center gap-2 bg-slate-900 text-white text-xs sm:text-sm font-medium px-3 sm:px-4 py-1.5 sm:py-2 rounded-full hover:bg-slate-800 hover:scale-105 active:scale-95 transition-all shadow-md ring-1 ring-slate-900/10"
+            className={cn("flex items-center gap-2 text-xs sm:text-sm font-medium px-3 sm:px-4 py-1.5 sm:py-2 rounded-full hover:scale-105 active:scale-95 transition-all shadow-md",
+              isDark
+                ? "border-white/10 bg-[#171717] text-white hover:bg-white/10 hover:text-white"
+                : "border-slate-200 bg-[#EAF2FF] text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+            )}
           >
             <Sparkles size={14} />
             <span>Create</span>
           </Link>
 
           {/* Mobile Menu Toggle Button */}
-          <button
+          {/* <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className={cn("md:hidden ml-1 p-1 rounded-md transition-colors", isDark ? "text-slate-400 hover:bg-white/10" : "text-slate-500 hover:bg-slate-100")}
           >
             {isMenuOpen ? <CloseIcon size={20} /> : <Menu size={20} />}
-          </button>
+          </button> */}
         </div>
 
       </div>
 
       {/* 6. Mobile Dropdown Menu */}
-      <div
+      {/* <div
         className={cn(
           "md:hidden overflow-hidden transition-all duration-300 ease-in-out",
           isMenuOpen ? "max-h-[200px] opacity-100 pb-4" : "max-h-0 opacity-0"
         )}
       >
-        <div className="flex flex-col gap-4 px-6 pt-2 pb-2">
-          <MobileNavLink href="#" isDark={isDark}>Templates</MobileNavLink>
-          <MobileNavLink href="#" isDark={isDark}>Showcase</MobileNavLink>
-          <MobileNavLink href="#" isDark={isDark}>Pricing</MobileNavLink>
+        <div className="flex flex-col gap-4 px-6 pt-2 pb-2"> */}
+          {/* <MobileNavLink href="#" isDark={isDark}>Templates</MobileNavLink> */}
+          {/* <MobileNavLink href="#" isDark={isDark}>Showcase</MobileNavLink> */}
           {/* Mobile X Link */}
-          <Link
+          {/* <Link
             href="https://x.com/yusuf_sdev"
             target="_blank"
             className={cn("pt-2 border-t border-white/5 flex items-center gap-2 text-sm", isDark ? "text-slate-500 hover:text-white" : "text-slate-500 hover:text-black")}
           >
             <XIcon size={16} /> <span>Follow on X</span>
-          </Link>
-        </div>
-      </div>
+          </Link> */}
+        {/* </div>
+      </div> */}
 
     </nav>
   );
@@ -162,14 +167,14 @@ const NavLink = ({ href, children, isDark }: { href: string; children: React.Rea
 );
 
 // Helper for Mobile Links
-const MobileNavLink = ({ href, children, isDark }: { href: string; children: React.ReactNode; isDark: boolean }) => (
-  <Link
-    href={href}
-    className={cn(
-      "text-base font-medium transition-colors block py-1",
-      isDark ? "text-slate-300 hover:text-white" : "text-slate-600 hover:text-slate-900"
-    )}
-  >
-    {children}
-  </Link>
-);
+// const MobileNavLink = ({ href, children, isDark }: { href: string; children: React.ReactNode; isDark: boolean }) => (
+//   <Link
+//     href={href}
+//     className={cn(
+//       "text-base font-medium transition-colors block py-1",
+//       isDark ? "text-slate-300 hover:text-white" : "text-slate-600 hover:text-slate-900"
+//     )}
+//   >
+//     {children}
+//   </Link>
+// );

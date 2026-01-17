@@ -45,8 +45,9 @@ export const Hero = () => {
           "text-5xl md:text-7xl font-extrabold tracking-tight mb-6 leading-tight transition-colors",
           isDark ? "text-white" : "text-slate-900"
         )}>
-          Create Viral <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-indigo-500">Mockups</span> <br className="hidden md:block" />
-          in Seconds.
+          The Social Mockup
+          <br className="hidden md:block" />
+          <span> Generator</span>
         </h1>
 
         {/* Subheadline */}
@@ -54,7 +55,7 @@ export const Hero = () => {
           "text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed transition-colors",
           isDark ? "text-slate-400" : "text-slate-500"
         )}>
-          The fastest way to create beautiful, verified mockups for social media. Designed for creators, developers, and founders.
+          A free and open-source tool to generate high-quality tweets and posts for your projects, presentations, or social media.
         </p>
 
         {/* CTA Buttons */}
@@ -75,14 +76,28 @@ export const Hero = () => {
           </Link>
 
           {/* Secondary Button */}
-          <button className={cn(
-            "flex items-center gap-2 px-8 py-4 text-base font-bold border rounded-full transition-all",
-            isDark
-              ? "bg-white/5 border-white/10 text-white hover:bg-white/10"
-              : "bg-white border-slate-200 text-slate-600 hover:bg-slate-50 hover:border-slate-300"
-          )}>
-            View Templates
-          </button>
+<button
+  disabled // 👈 1. Best practice: Actually disable the button
+  className={cn(
+    // 👈 2. Added 'opacity-60' to visually show it's disabled
+    "flex items-center gap-3 px-8 py-4 text-base font-bold border rounded-full transition-all cursor-not-allowed opacity-60",
+    isDark
+      ? "bg-white/5 border-white/10 text-white" // Removed hover effects
+      : "bg-white border-slate-200 text-slate-600" // Removed hover effects
+  )}
+>
+  <span>View Templates</span>
+
+  {/* 3. The "Coming Soon" Badge */}
+  <span className={cn(
+      "text-[10px] uppercase tracking-wider font-extrabold px-2 py-0.5 rounded-full",
+      isDark
+        ? "bg-yellow-500/10 text-yellow-400 border border-yellow-500/20"
+        : "bg-yellow-100 text-yellow-700 border border-yellow-200"
+  )}>
+      Soon
+  </span>
+</button>
         </div>
 
         {/* Social Proof / Features */}
