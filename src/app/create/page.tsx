@@ -63,7 +63,12 @@ export default function CreatePage() {
     const toastId = toast.loading("Generating image...");
 
     try {
-      const dataUrl = await toPng(node, { quality: 1.0, pixelRatio: 2 });
+      const dataUrl = await toPng(node, {
+        quality: 1.0,
+        pixelRatio: 3,       // Increased to 3 for sharper images on high-density mobile screens
+        skipAutoScale: true, // 👈 CRITICAL: Prevents mobile viewport shifting issues
+        cacheBust: true,     // 👈 Forces reload of resources
+      });
       const link = document.createElement('a');
       link.download = 'flexpost-mockup.png';
       link.href = dataUrl;

@@ -26,7 +26,7 @@ export const EditableImage = ({ src, onChange, className, isAvatar }: EditableIm
   };
 
   const handleRemove = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Prevent triggering the click on the parent div
+    e.stopPropagation();
     onChange(null);
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
@@ -38,7 +38,6 @@ export const EditableImage = ({ src, onChange, className, isAvatar }: EditableIm
       onClick={() => fileInputRef.current?.click()}
       className={cn(
         "relative group cursor-pointer overflow-hidden bg-gray-100 flex items-center justify-center transition-colors hover:bg-gray-200",
-        // Different shapes for Avatar vs Post Image
         isAvatar ? "rounded-full" : "rounded-2xl border border-gray-200",
         className
       )}
@@ -51,15 +50,17 @@ export const EditableImage = ({ src, onChange, className, isAvatar }: EditableIm
         className="hidden"
       />
 
-      {/* ✅ FIX: Only render the <img> tag if 'src' is a non-empty string */}
       {src && src.length > 0 ? (
         <>
           <img
             src={src}
             alt="Upload"
             className="w-full h-full object-cover"
+            // 👇 CRITICAL FIXES FOR MOBILE EXPORT:
+            crossOrigin="anonymous" // Helps with CORS (even for base64)
+            decoding="sync"         // Forces browser to decode immediately, not async
+            loading="eager"         // Prevents lazy loading
           />
-          {/* Remove Button (Only show on hover) */}
           <button
             onClick={handleRemove}
             className="absolute top-1 right-1 bg-black/50 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/70 z-10"
@@ -70,8 +71,8 @@ export const EditableImage = ({ src, onChange, className, isAvatar }: EditableIm
         </>
       ) : (
         <div className="flex flex-col items-center justify-center text-gray-500">
-          <Upload size={24} />
-          <span className="text-sm mt-1">Upload Image</span>
+          <Upload size={isAvatar ? 16 : 24} />
+          {!isAvatar && <span className="text-sm mt-1">Upload Image</span>}
         </div>
       )}
     </div>
