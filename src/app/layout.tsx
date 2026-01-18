@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
@@ -15,9 +15,41 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// 1. Setup the Base URL (Replace with your actual domain)
+const SITE_URL = process.env.NEXT_PUBLIC_APP_URL || "https://www.flexpost.xyz/";
+
 export const metadata: Metadata = {
-  title: "FlexPost - Social Media Mockup Generator",
-  description: "The fastest way to create beautiful, verified mockups for social media.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "FlexPost - Open Source Social Media Mockup Generator",
+    template: "%s | FlexPost",
+  },
+  description: "Create beautiful, verified mockups for social media instantly. Free, open-source, and privacy-focused. No login required.",
+  keywords: [
+    "social media mockup",
+    "tweet generator",
+    "fake tweet maker",
+    "free tweet maker",
+    "no login tool",
+    "open source design tool",
+    "privacy focused"
+  ],
+  authors: [{ name: "Yusuf", url: "https://twitter.com/yusuf_sdev" }],
+  creator: "Yusuf",
+
+  // 3. Icons
+  icons: {
+    icon: "/icon.png",
+    shortcut: "/icon.png",
+    apple: "/icon.png",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "white" },
+    { media: "(prefers-color-scheme: dark)", color: "black" },
+  ],
 };
 
 export default function RootLayout({
@@ -26,12 +58,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
         <Navbar />
-        {children}
+        <main className="flex-grow">
+          {children}
+        </main>
         <Footer />
         <Toaster position="top-center" richColors />
       </body>
