@@ -19,7 +19,7 @@ export default function Home() {
       {/* 1. Hero Section */}
       <Hero />
 
-      {/* 2. Video Demo Section */}
+{/* 2. Video Demo Section */}
       <section className="pb-32 px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto">
 
@@ -34,24 +34,22 @@ export default function Home() {
 
           {/* Video Container Frame */}
           <div className={cn(
-            "relative aspect-video w-full rounded-2xl overflow-hidden border shadow-2xl group cursor-pointer",
+            "relative aspect-video w-full rounded-2xl overflow-hidden border shadow-2xl", // Removed 'cursor-pointer' and 'group'
             isGlobalDark
               ? "bg-slate-900 border-white/10 shadow-black/50"
               : "bg-white border-white/50 shadow-blue-900/10"
           )}>
 
-            {/* Placeholder Background (Replace this with your <video> or <iframe>) */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-blue-900/20 to-purple-900/20 flex items-center justify-center">
-
-              {/* Play Button */}
-              <div className="w-20 h-20 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center border border-white/20 transition-transform duration-300 group-hover:scale-110 group-hover:bg-white/20">
-                <Play size={32} className="text-white ml-1 fill-white" />
-              </div>
-
-            </div>
-
-            {/* Optional: Add actual video tag here */}
-            {/* <video src="/demo.mp4" controls className="w-full h-full object-cover" /> */}
+            {/* YouTube Embed */}
+            <iframe
+              className="absolute inset-0 w-full h-full"
+              src="https://www.youtube.com/embed/6v3Y3gSQsXY"
+              title="FlexPost Demo"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+            />
 
           </div>
 
