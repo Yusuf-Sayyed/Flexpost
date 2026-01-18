@@ -41,7 +41,7 @@ const initialState: TwitterState = {
   verifiedType: 'blue',
   displayName: 'yusuf',
   username: 'yusuf_sdev',
-  content: 'gm\n\nNever stop hustling\n\nKeep trying and you will achieve it',
+  content: 'Hello world! 👋\n\nThis is a preview of what your post could look like.\n\nYou can click right here to edit this text,\n\nchange the background, and customize the style to match your brand.',
   timestamp: '5:00 AM',
   date: 'Oct 6, 2003',
   avatarUrl: null,
@@ -51,11 +51,11 @@ const initialState: TwitterState = {
   showCustomBadge: false,
   isVerified: false,
   stats: {
-    views: '10',
-    likes: '45',
-    retweets: '12',
-    replies: '5',
-    bookmarks: '3'
+    views: '748',
+    likes: '458',
+    retweets: '238',
+    replies: '158',
+    bookmarks: '43'
   }
 }
 
