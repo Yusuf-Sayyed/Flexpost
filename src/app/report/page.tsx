@@ -51,8 +51,7 @@ export default function ReportBugPage() {
                 Don't have a GitHub account? No problem. Use our simple form to tell us what went wrong. We'll ask for a screenshot and what you were doing when it happened.
             </p>
             <Link
-                // 👇 REPLACE THIS with your actual Google Form or Typeform link
-                href="https://forms.google.com/your-form-link"
+                href="https://forms.gle/2T1rsghfhLAWDM2k7"
                 target="_blank"
                 className={cn(
                     "inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-colors w-full justify-center",
