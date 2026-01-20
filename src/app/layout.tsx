@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-// 1. Setup the Base URL (Replace with your actual domain)
-const SITE_URL = process.env.NEXT_PUBLIC_APP_URL || "https://www.flexpost.xyz/";
+const SITE_URL =
+  process.env.NEXT_PUBLIC_APP_URL || "https://flexpost.xyz";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -24,25 +24,17 @@ export const metadata: Metadata = {
     default: "FlexPost - Open Source Social Media Mockup Generator",
     template: "%s | FlexPost",
   },
-  description: "Create beautiful, verified mockups for social media instantly. Free, open-source, and privacy-focused. No login required.",
+  description:
+    "Create beautiful, verified mockups for social media instantly. Free, open-source, and privacy-focused. No login required.",
   keywords: [
     "social media mockup",
     "tweet generator",
-    "fake tweet maker",
     "free tweet maker",
-    "no login tool",
     "open source design tool",
-    "privacy focused"
+    "privacy focused",
   ],
   authors: [{ name: "Yusuf", url: "https://twitter.com/yusuf_sdev" }],
   creator: "Yusuf",
-
-  // 3. Icons
-  icons: {
-    icon: "/icon.png",
-    shortcut: "/icon.png",
-    apple: "/icon.png",
-  },
 };
 
 export const viewport: Viewport = {
