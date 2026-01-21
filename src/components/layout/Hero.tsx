@@ -75,9 +75,9 @@ export const Hero = () => {
             <ArrowRight size={18} />
           </Link>
 
-{/* Secondary Button - Updated to Link */}
+          {/* Secondary Button - Updated to Link */}
           <Link
-            href="/templates"
+            href="#"
             className={cn(
               "flex items-center gap-3 px-8 py-4 text-base font-bold border rounded-full transition-all hover:scale-105",
               isDark
@@ -87,6 +87,10 @@ export const Hero = () => {
           >
             <LayoutTemplate size={18} />
             <span>Browse Templates</span>
+            <span className={cn(
+              "ml-2 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider",
+              isDark ? "bg-blue-500/20 text-blue-300" : "bg-blue-100 text-blue-600"
+            )}>Coming Soon</span>
           </Link>
         </div>
 

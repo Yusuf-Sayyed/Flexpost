@@ -16,7 +16,7 @@ export const Navbar = () => {
   if (pathname === '/create') {
     return null;
   }
-  if (['/create', '/report', '/privacy', '/terms', '/templates','/templates/axiom'].includes(pathname)) {
+  if (['/create', '/report', '/privacy', '/terms'].includes(pathname)) {
     return null;
   }
   return (
@@ -72,8 +72,8 @@ export const Navbar = () => {
             className={cn(
               "flex items-center justify-center w-8 h-8 rounded-full transition-colors",
               isDark
-            ? "text-neutral-500 hover:text-slate-900 hover:bg-indigo-50"
-            : "text-neutral-600 hover:text-neutral-300 hover:bg-neutral-900"
+                ? "text-neutral-500 hover:text-slate-900 hover:bg-indigo-50"
+                : "text-neutral-600 hover:text-neutral-300 hover:bg-neutral-900"
             )}
             title="Toggle Theme"
           >
@@ -129,17 +129,17 @@ export const Navbar = () => {
         )}
       >
         <div className="flex flex-col gap-4 px-6 pt-2 pb-2"> */}
-          {/* <MobileNavLink href="#" isDark={isDark}>Templates</MobileNavLink> */}
-          {/* <MobileNavLink href="#" isDark={isDark}>Showcase</MobileNavLink> */}
-          {/* Mobile X Link */}
-          {/* <Link
+      {/* <MobileNavLink href="#" isDark={isDark}>Templates</MobileNavLink> */}
+      {/* <MobileNavLink href="#" isDark={isDark}>Showcase</MobileNavLink> */}
+      {/* Mobile X Link */}
+      {/* <Link
             href="https://x.com/yusuf_sdev"
             target="_blank"
             className={cn("pt-2 border-t border-white/5 flex items-center gap-2 text-sm", isDark ? "text-slate-500 hover:text-white" : "text-slate-500 hover:text-black")}
           >
             <XIcon size={16} /> <span>Follow on X</span>
           </Link> */}
-        {/* </div>
+      {/* </div>
       </div> */}
 
     </nav>
