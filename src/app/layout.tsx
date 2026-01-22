@@ -26,6 +26,10 @@ export const metadata: Metadata = {
   },
   description:
     "Create beautiful, verified mockups for social media instantly. Free, open-source, and privacy-focused. No login required.",
+  icons: {
+    icon: "/icon.png",
+    apple: "/icon.png",
+  },
   keywords: [
     "social media mockup",
     "tweet generator",
