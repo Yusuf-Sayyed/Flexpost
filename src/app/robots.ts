@@ -2,7 +2,7 @@
 import { MetadataRoute } from 'next'
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = 'https://flexpost.xyz'
+  const baseUrl = 'https://www.flexpost.xyz'
 
   return {
     rules: {
