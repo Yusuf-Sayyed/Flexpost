@@ -1,6 +1,7 @@
 'use client';
 
-import { X as CloseIcon, Coffee, Twitter } from 'lucide-react';
+import { useState } from 'react';
+import { X as CloseIcon, Coffee, Twitter, Copy, Check, Wallet } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { usePostStore } from '@/store/usePostStore';
 
@@ -12,6 +13,14 @@ interface SupportPopupProps {
 export const SupportPopup = ({ isOpen, onClose }: SupportPopupProps) => {
     const { globalTheme } = usePostStore();
     const isDark = globalTheme === 'dark';
+    const [copied, setCopied] = useState(false);
+    const solanaAddress = "HzJr3T2qHesCVkQZcQJK8nZWkns1N9qj4Hj4dHi8ZNP8";
+
+    const handleCopy = () => {
+        navigator.clipboard.writeText(solanaAddress);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+    };
 
     if (!isOpen) return null;
 
@@ -43,7 +52,7 @@ export const SupportPopup = ({ isOpen, onClose }: SupportPopupProps) => {
                     </div>
                     <h2 className="text-xl font-bold mb-2">Export Successful!</h2>
                     <p className={cn("text-sm", isDark ? "text-neutral-400" : "text-neutral-500")}>
-                        Your image is ready. If you enjoyed using FlexPost, please consider supporting the project!
+                        Your image is ready sir. If you enjoyed using FlexPost, please consider supporting the project!
                     </p>
                 </div>
 
@@ -80,6 +89,31 @@ export const SupportPopup = ({ isOpen, onClose }: SupportPopupProps) => {
                         <Coffee size={18} />
                         <span>Buy me a coffee</span>
                     </a>
+
+                    {/* Solana Address */}
+                    <button
+                        onClick={handleCopy}
+                        className={cn(
+                            "flex items-center justify-between gap-3 w-full p-3.5 rounded-xl font-medium border transition-all transform hover:scale-[1.02] active:scale-[0.98] group",
+                            isDark
+                                ? "border-purple-500/30 bg-purple-500/10 text-purple-400 hover:bg-purple-500/20"
+                                : "border-purple-300 bg-purple-50 text-purple-700 hover:bg-purple-100"
+                        )}
+                    >
+                        <div className="flex items-center gap-3">
+                            <Wallet size={18} />
+                            <span>Donate SOL</span>
+                        </div>
+                        <div className={cn(
+                            "flex items-center gap-2 text-xs font-mono px-2 py-1 rounded bg-black/5 dark:bg-white/10",
+                            copied ? "text-green-500" : "opacity-70"
+                        )}>
+                            <span>
+                                {copied ? "Copied!" : `${solanaAddress.slice(0, 4)}...${solanaAddress.slice(-4)}`}
+                            </span>
+                            {copied ? <Check size={12} /> : <Copy size={12} />}
+                        </div>
+                    </button>
                 </div>
 
                 {/* Footer */}
