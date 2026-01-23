@@ -9,9 +9,14 @@ import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { GridBackgroundDemo } from '@/components/ui/grid-background-demo';
 import { toast } from 'sonner';
+import { useState } from 'react';
+import { SupportPopup } from '@/components/layout/SupportPopup';
 
 export default function CreatePage() {
   // 👇 FIX: Added 'showImage' here so the validation below knows the toggle state
+  // State for Support Popup
+  const [showSupportPopup, setShowSupportPopup] = useState(false);
+
   const {
     reset,
     globalTheme,
@@ -74,6 +79,9 @@ export default function CreatePage() {
       link.href = dataUrl;
       link.click();
       toast.success("Image downloaded successfully!", { id: toastId });
+
+      // Show Support Popup after a short delay
+      setTimeout(() => setShowSupportPopup(true), 1000);
     } catch (err) {
       console.error(err);
       toast.error("Something went wrong during export.", { id: toastId });
@@ -88,7 +96,7 @@ export default function CreatePage() {
       )}
     >
       {/* HEADER */}
- {/* HEADER */}
+      {/* HEADER */}
       <nav className={cn(
         "h-16 shrink-0 flex items-center justify-between px-6 border-b z-50",
         isGlobalDark ? "bg-[#171717] border-white/5" : "bg-[#EAF2FF] border-blue-100"
@@ -97,31 +105,31 @@ export default function CreatePage() {
         {/* Left Side Container */}
         <div className="flex items-center gap-2">
 
-            {/* 1. The Icon (Clickable Link) */}
-            <Link href="/" className="group">
-                <div className={cn(
-                    "p-1.5 rounded-full transition-colors",
-                    // 👇 Applied the specific hover animation styles
-                    isGlobalDark
-                        ? "text-neutral-500 bg-neutral-800 hover:text-slate-900 hover:bg-indigo-50"
-                        : "text-neutral-600 bg-slate-200 hover:text-neutral-300 hover:bg-neutral-900"
-                )}>
-                    <ChevronLeft size={16} />
-                </div>
-            </Link>
-
-            {/* 2. The Text (Not Clickable) */}
-            <span className={cn(
-                "hidden min-[768px]:inline text-sm font-semibold select-none",
-                isGlobalDark ? "text-neutral-500" : "text-neutral-600"
+          {/* 1. The Icon (Clickable Link) */}
+          <Link href="/" className="group">
+            <div className={cn(
+              "p-1.5 rounded-full transition-colors",
+              // 👇 Applied the specific hover animation styles
+              isGlobalDark
+                ? "text-neutral-500 bg-neutral-800 hover:text-slate-900 hover:bg-indigo-50"
+                : "text-neutral-600 bg-slate-200 hover:text-neutral-300 hover:bg-neutral-900"
             )}>
-                Back
-            </span>
+              <ChevronLeft size={16} />
+            </div>
+          </Link>
+
+          {/* 2. The Text (Not Clickable) */}
+          <span className={cn(
+            "hidden min-[768px]:inline text-sm font-semibold select-none",
+            isGlobalDark ? "text-neutral-500" : "text-neutral-600"
+          )}>
+            Back
+          </span>
         </div>
 
         {/* Center Title */}
         <span className={cn("text-sm font-bold tracking-widest uppercase opacity-40 hidden sm:block", isGlobalDark ? "text-white" : "text-slate-900")}>
-            Studio
+          Studio
         </span>
 
         {/* Spacer for centering */}
@@ -155,13 +163,13 @@ export default function CreatePage() {
           <div className="min-h-full flex flex-col items-center p-2 sm:p-6 lg:p-12 relative z-10 py-8 lg:justify-center">
             {/* Mobile Controls */}
             <div className="lg:hidden w-full max-w-[600px] mb-6 space-y-4 animate-in fade-in slide-in-from-top-10 duration-700 relative z-30">
-               <div className="flex items-center gap-2 opacity-70 px-2">
-                  <SettingsIcon size={14} className={isGlobalDark ? "text-white" : "text-slate-900"} />
-                  <span className={cn("text-[10px] font-bold uppercase tracking-widest", isGlobalDark ? "text-white" : "text-slate-900")}>Editor Settings</span>
-               </div>
-               <div className={cn("p-1 rounded-3xl shadow-lg", isGlobalDark ? "bg-[#1F1F1F] border border-white/10" : "bg-white border border-white/40")}>
-                 <EditorControls />
-               </div>
+              <div className="flex items-center gap-2 opacity-70 px-2">
+                <SettingsIcon size={14} className={isGlobalDark ? "text-white" : "text-slate-900"} />
+                <span className={cn("text-[10px] font-bold uppercase tracking-widest", isGlobalDark ? "text-white" : "text-slate-900")}>Editor Settings</span>
+              </div>
+              <div className={cn("p-1 rounded-3xl shadow-lg", isGlobalDark ? "bg-[#1F1F1F] border border-white/10" : "bg-white border border-white/40")}>
+                <EditorControls />
+              </div>
             </div>
 
             {/* Tweet Card */}
@@ -191,6 +199,7 @@ export default function CreatePage() {
           </div>
         </div>
       </div>
+      <SupportPopup isOpen={showSupportPopup} onClose={() => setShowSupportPopup(false)} />
     </main>
   );
 }
