@@ -156,16 +156,34 @@ export const TwitterPost = ({ id }: { id: string }) => {
                     />
 
                     {/* Post Image */}
-                    {state.showImage && (
+                    {(state.showImage || state.showImage2) && (
                         <div className="mb-3 mt-3">
-                            <EditableImage
-                                src={state.postImageUrl}
-                                onChange={(url) => state.updateField('postImageUrl', url)}
-                                className={cn(
-                                    "w-full h-auto max-h-[500px] border rounded-2xl object-cover",
-                                    isDark ? "border-gray-800" : "border-gray-100"
+                            <div className={cn(
+                                "flex overflow-hidden rounded-2xl border",
+                                isDark ? "border-gray-800" : "border-gray-100",
+                                (state.showImage && state.showImage2) ? "gap-[2px]" : ""
+                            )}>
+                                {state.showImage && (
+                                    <EditableImage
+                                        src={state.postImageUrl}
+                                        onChange={(url) => state.updateField('postImageUrl', url)}
+                                        className={cn(
+                                            "object-cover hover:opacity-90 transition-opacity cursor-pointer !border-none !rounded-none",
+                                            (state.showImage && state.showImage2) ? "w-1/2 h-full aspect-[0.85]" : "w-full h-auto max-h-[500px]"
+                                        )}
+                                    />
                                 )}
-                            />
+                                {state.showImage2 && (
+                                    <EditableImage
+                                        src={state.postImage2Url}
+                                        onChange={(url) => state.updateField('postImage2Url', url)}
+                                        className={cn(
+                                            "object-cover hover:opacity-90 transition-opacity cursor-pointer !border-none !rounded-none",
+                                            (state.showImage && state.showImage2) ? "w-1/2 h-full aspect-[0.85]" : "w-full h-auto max-h-[500px]"
+                                        )}
+                                    />
+                                )}
+                            </div>
                         </div>
                     )}
 
@@ -201,22 +219,22 @@ export const TwitterPost = ({ id }: { id: string }) => {
 
                     {/* Footer */}
                     <div className="flex justify-between items-center text-gray-500 px-1">
-                            <div className="flex items-center gap-2 group cursor-pointer">
-                                <MessageCircle size={18} className="group-hover:text-blue-400" />
-                                <EditableText value={state.stats.replies} onChange={(v) => state.updateStat('replies', v.replace(/\D/g, '').slice(0, 10))} onBlur={() => handleStatBlur('replies', state.stats.replies)} className="w-[7ch]" />
-                            </div>
-                            <div className="flex items-center gap-2 group cursor-pointer">
-                                <Repeat2 size={18} className="group-hover:text-green-400" />
-                                <EditableText value={state.stats.retweets} onChange={(v) => state.updateStat('retweets', v.replace(/\D/g, '').slice(0, 10))} onBlur={() => handleStatBlur('retweets', state.stats.retweets)} className="w-[7ch]" />
-                            </div>
-                            <div className="flex items-center gap-2 group cursor-pointer">
-                                <Heart size={18} className="group-hover:text-pink-500" />
-                                <EditableText value={state.stats.likes} onChange={(v) => state.updateStat('likes', v.replace(/\D/g, '').slice(0, 10))} onBlur={() => handleStatBlur('likes', state.stats.likes)} className="w-[7ch]" />
-                            </div>
-                            <div className="flex items-center gap-2 group cursor-pointer">
-                                <Bookmark size={18} className="group-hover:text-blue-400" />
-                                <EditableText value={state.stats.bookmarks} onChange={(v) => state.updateStat('bookmarks', v.replace(/\D/g, '').slice(0, 10))} onBlur={() => handleStatBlur('bookmarks', state.stats.bookmarks)} className="w-[7ch]" />
-                            </div>
+                        <div className="flex items-center gap-2 group cursor-pointer">
+                            <MessageCircle size={18} className="group-hover:text-blue-400" />
+                            <EditableText value={state.stats.replies} onChange={(v) => state.updateStat('replies', v.replace(/\D/g, '').slice(0, 10))} onBlur={() => handleStatBlur('replies', state.stats.replies)} className="w-[7ch]" />
+                        </div>
+                        <div className="flex items-center gap-2 group cursor-pointer">
+                            <Repeat2 size={18} className="group-hover:text-green-400" />
+                            <EditableText value={state.stats.retweets} onChange={(v) => state.updateStat('retweets', v.replace(/\D/g, '').slice(0, 10))} onBlur={() => handleStatBlur('retweets', state.stats.retweets)} className="w-[7ch]" />
+                        </div>
+                        <div className="flex items-center gap-2 group cursor-pointer">
+                            <Heart size={18} className="group-hover:text-pink-500" />
+                            <EditableText value={state.stats.likes} onChange={(v) => state.updateStat('likes', v.replace(/\D/g, '').slice(0, 10))} onBlur={() => handleStatBlur('likes', state.stats.likes)} className="w-[7ch]" />
+                        </div>
+                        <div className="flex items-center gap-2 group cursor-pointer">
+                            <Bookmark size={18} className="group-hover:text-blue-400" />
+                            <EditableText value={state.stats.bookmarks} onChange={(v) => state.updateStat('bookmarks', v.replace(/\D/g, '').slice(0, 10))} onBlur={() => handleStatBlur('bookmarks', state.stats.bookmarks)} className="w-[7ch]" />
+                        </div>
                         <div className="flex items-center gap-2 group cursor-pointer">
                             <Share size={18} className="group-hover:text-blue-400" />
                         </div>

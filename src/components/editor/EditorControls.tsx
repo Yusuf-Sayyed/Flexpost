@@ -131,7 +131,7 @@ export const EditorControls = () => {
 
           {/* 👇 UPDATE 1: Custom Badge Logic */}
           <button
-          onClick={() => state.updateField('showCustomBadge', !state.showCustomBadge)}
+            onClick={() => state.updateField('showCustomBadge', !state.showCustomBadge)}
             className={cn(
               "flex w-full items-center justify-between rounded-xl border px-4 py-3 text-sm font-medium transition-all shadow-md",
               state.showCustomBadge
@@ -146,9 +146,9 @@ export const EditorControls = () => {
               <span>Custom Icon</span>
             </div>
             {state.showCustomBadge && (
-               <span className={cn("text-[10px] px-2 py-0.5 rounded font-bold uppercase tracking-wider bg-blue-500 text-white")}>
-                 Active
-               </span>
+              <span className={cn("text-[10px] px-2 py-0.5 rounded font-bold uppercase tracking-wider bg-blue-500 text-white")}>
+                Active
+              </span>
             )}
           </button>
         </div>
@@ -173,17 +173,41 @@ export const EditorControls = () => {
           >
             <div className="flex items-center gap-3">
               <ImageIcon size={18} />
-              <span>Post Image</span>
+              <span>Image (Left)</span>
             </div>
 
             {state.showImage ? (
-                // If active, show checkmark
-               <CheckCircle2 size={18} className="text-blue-500" />
+              <CheckCircle2 size={18} className="text-blue-500" />
             ) : (
-                // If inactive, show "Add" text
-                <div className="flex items-center gap-1 text-slate-400 text-xs font-bold">
-                    Add
-                </div>
+              <div className="flex items-center gap-1 text-slate-400 text-xs font-bold">
+                Add
+              </div>
+            )}
+          </button>
+
+          {/* Second Image Toggle */}
+          <button
+            onClick={() => state.updateField('showImage2', !state.showImage2)}
+            className={cn(
+              "flex w-full items-center justify-between rounded-xl border px-4 py-3 text-sm font-medium transition-all shadow-md",
+              state.showImage2
+                ? "border-blue-500 text-blue-500 bg-blue-500/10"
+                : (isGlobalDark
+                  ? "bg-white/5 border-white/10 text-slate-300 hover:border-neutral-700 hover:text-white hover:bg-white/10"
+                  : "bg-white border-slate-200 text-slate-600 hover:border-neutral-100 hover:text-slate-900")
+            )}
+          >
+            <div className="flex items-center gap-3">
+              <ImageIcon size={18} />
+              <span>Image (Right)</span>
+            </div>
+
+            {state.showImage2 ? (
+              <CheckCircle2 size={18} className="text-blue-500" />
+            ) : (
+              <div className="flex items-center gap-1 text-slate-400 text-xs font-bold">
+                Add
+              </div>
             )}
           </button>
         </div>

@@ -13,6 +13,8 @@ interface TwitterState {
   avatarUrl: string | null
   postImageUrl: string | null
   showImage: boolean // 👈 1. Added this type
+  postImage2Url: string | null
+  showImage2: boolean
   customBadgeUrl: string | null
   showCustomBadge: boolean
   isVerified: boolean
@@ -47,6 +49,8 @@ const initialState: TwitterState = {
   avatarUrl: null,
   postImageUrl: null,
   showImage: false,
+  postImage2Url: null,
+  showImage2: false,
   customBadgeUrl: null,
   showCustomBadge: false,
   isVerified: false,
