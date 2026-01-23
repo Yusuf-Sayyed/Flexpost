@@ -43,7 +43,7 @@ const initialState: TwitterState = {
   verifiedType: 'blue',
   displayName: 'yusuf',
   username: 'yusuf_sdev',
-  content: 'Hello world! 👋\n\nThis is a preview of what your post could look like.\n\nYou can click right here to edit this text,\n\nchange the background, and customize the style to match your brand.',
+  content: 'Hello world! 👋\n\nThis is a preview of what your post could look like.\n\nYou can click right here to edit this text,\n\n.Add upto 2 images side by side',
   timestamp: '5:00 AM',
   date: 'Oct 6, 2003',
   avatarUrl: null,
