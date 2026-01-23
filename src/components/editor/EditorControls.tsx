@@ -130,27 +130,40 @@ export const EditorControls = () => {
           </div>
 
           {/* 👇 UPDATE 1: Custom Badge Logic */}
-          <button
-            onClick={() => state.updateField('showCustomBadge', !state.showCustomBadge)}
-            className={cn(
-              "flex w-full items-center justify-between rounded-xl border px-4 py-3 text-sm font-medium transition-all shadow-md",
-              state.showCustomBadge
-                ? "border-blue-500 text-blue-500 bg-blue-500/10"
-                : (isGlobalDark
-                  ? "bg-white/5 border-white/10 text-slate-300 hover:border-neutral-700 hover:text-white hover:bg-white/10"
-                  : "bg-white border-slate-200 text-slate-600 hover:border-neutral-100 hover:text-slate-900")
-            )}
-          >
-            <div className="flex items-center gap-3">
-              <Stamp size={18} />
-              <span>Custom Icon</span>
-            </div>
+          {/* Custom Badge Toggle */}
+          <div className="flex flex-col gap-2">
+            <button
+              onClick={() => state.updateField('showCustomBadge', !state.showCustomBadge)}
+              className={cn(
+                "flex w-full items-center justify-between rounded-xl border px-4 py-3 text-sm font-medium transition-all shadow-md",
+                state.showCustomBadge
+                  ? "border-blue-500 text-blue-500 bg-blue-500/10"
+                  : (isGlobalDark
+                    ? "bg-white/5 border-white/10 text-slate-300 hover:border-neutral-700 hover:text-white hover:bg-white/10"
+                    : "bg-white border-slate-200 text-slate-600 hover:border-neutral-100 hover:text-slate-900")
+              )}
+            >
+              <div className="flex items-center gap-3">
+                <Stamp size={18} />
+                <span>Custom Icon</span>
+              </div>
+              {state.showCustomBadge && (
+                <span className={cn("text-[10px] px-2 py-0.5 rounded font-bold uppercase tracking-wider bg-blue-500 text-white")}>
+                  Active
+                </span>
+              )}
+            </button>
+
+            {/* Helper Note */}
             {state.showCustomBadge && (
-              <span className={cn("text-[10px] px-2 py-0.5 rounded font-bold uppercase tracking-wider bg-blue-500 text-white")}>
-                Active
-              </span>
+              <div className="px-1 animate-in fade-in slide-in-from-top-1">
+                <p className="text-[11px] font-medium text-blue-500/90 bg-blue-500/5 p-2 rounded-lg border border-blue-500/10 flex items-center gap-2">
+                  <span className="text-lg">💡</span>
+                  Click on the icon in the preview card to upload your image.
+                </p>
+              </div>
             )}
-          </button>
+          </div>
         </div>
 
         {/* --- SECTION 3: MEDIA --- */}

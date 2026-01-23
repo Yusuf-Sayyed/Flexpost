@@ -110,6 +110,7 @@ export const TwitterPost = ({ id }: { id: string }) => {
                                                 src={state.customBadgeUrl}
                                                 onChange={(url) => state.updateField('customBadgeUrl', url)}
                                                 className="w-[18px] h-[18px] !rounded-sm p-0.5"
+                                                isAvatar
                                             />
                                         </div>
                                     )}
