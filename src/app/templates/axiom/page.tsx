@@ -2,9 +2,13 @@
 
 import { useState, useRef, ChangeEvent, useEffect } from "react";
 import { toPng } from "html-to-image";
-import { Upload, Download, RefreshCw, X, Image as ImageIcon, Search, FileCode, ChevronLeft } from "lucide-react";
+import { Upload, Download, RefreshCw, X, Image as ImageIcon, Search, FileCode, ChevronLeft, SettingsIcon } from "lucide-react";
 import { toast } from "sonner";
 import Link from "next/link";
+import { SupportPopup } from '@/components/layout/SupportPopup';
+import { cn } from '@/lib/utils';
+import { usePostStore } from '@/store/usePostStore';
+
 
 // 1. CONSTANTS: Fallback list
 const FALLBACK_TOKENS = [
@@ -27,9 +31,12 @@ interface Token {
 }
 
 export default function AxiomTemplatePage() {
+  const [showSupportPopup, setShowSupportPopup] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
   const debounceRef = useRef<NodeJS.Timeout | null>(null);
-
+  const { globalTheme } = usePostStore();
+  const isDark = globalTheme === 'dark';
+  const isGlobalDark = globalTheme === 'dark';
   const [isExporting, setIsExporting] = useState(false);
   const [searchMode, setSearchMode] = useState<'ticker' | 'contract'>('ticker');
   const [tokenList, setTokenList] = useState<Token[]>(FALLBACK_TOKENS);
@@ -149,6 +156,7 @@ export default function AxiomTemplatePage() {
       link.href = dataUrl;
       link.click();
       toast.success("Exported successfully!");
+      setTimeout(() => setShowSupportPopup(true), 1000);
     } catch (err) {
       console.error(err);
       toast.error("Failed to export image.");
@@ -158,13 +166,24 @@ export default function AxiomTemplatePage() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white font-sans selection:bg-green-500/30 overflow-x-hidden">
+    <main className={cn(
+      "min-h-screen relative isolation-auto transition-colors duration-500 font-sans selection:bg-green-500/30 overflow-x-hidden",
+      isGlobalDark ? "bg-[#171717] text-white" : "bg-[#EAF2FF] text-slate-900"
+    )}>
       {/* HEADER */}
-      <nav className="h-16 shrink-0 flex items-center justify-between px-6 border-b bg-[#171717] border-white/5 z-50">
+      <nav className={cn(
+        "h-16 shrink-0 flex items-center justify-between px-6 border-b z-50 transition-colors",
+        isGlobalDark ? "bg-[#171717] border-white/5" : "bg-[#EAF2FF] border-blue-100"
+      )}>
         {/* Left Side - Back Button */}
         <div className="flex items-center gap-2">
           <Link href="/templates" className="group">
-            <div className="p-1.5 rounded-full transition-colors text-neutral-500 bg-neutral-800 hover:text-slate-900 hover:bg-indigo-50">
+            <div className={cn(
+              "p-1.5 rounded-full transition-colors",
+              isGlobalDark
+                ? "text-neutral-500 bg-neutral-800 hover:text-slate-900 hover:bg-indigo-50"
+                : "text-neutral-600 bg-slate-200 hover:text-neutral-300 hover:bg-neutral-900"
+            )}>
               <ChevronLeft size={16} />
             </div>
           </Link>
@@ -186,9 +205,17 @@ export default function AxiomTemplatePage() {
       <div className="p-3 sm:p-4 md:p-8">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8 lg:gap-12 items-start">
           {/* --- LEFT COLUMN: CONTROLS (Mobile-first adjustments) --- */}
-          <div className="lg:col-span-4 bg-[#0A0A0A] border border-white/5 rounded-xl md:rounded-2xl p-4 md:p-6 shadow-xl order-2 lg:order-1">
+          <div className={cn(
+            "lg:col-span-4 border rounded-xl md:rounded-2xl p-4 md:p-6 shadow-xl order-2 lg:order-1 transition-colors",
+            isGlobalDark ? "bg-[#0A0A0A] border-white/5" : "bg-white border-blue-100 shadow-blue-900/5"
+          )}>
             <div className="flex items-center justify-between mb-6 md:mb-8 pb-4 md:pb-6 border-b border-white/5">
-              <h2 className="text-base md:text-lg font-bold text-white tracking-wide">Configuration</h2>
+              <div className="flex items-center gap-3">
+                <div className={cn("p-2 rounded-xl", isGlobalDark ? "bg-blue-500/10 text-blue-400" : "bg-blue-500 text-white shadow-lg shadow-blue-500/30")}>
+                  <SettingsIcon size={20} />
+                </div>
+                <h1 className={cn("text-xl font-bold tracking-tight", isGlobalDark ? "text-white" : "text-slate-900")}>Settings</h1>
+              </div>
               <span className="px-2 py-1 rounded bg-green-500/10 text-green-400 text-xs font-mono font-bold">Beta</span>
             </div>
 
@@ -198,7 +225,10 @@ export default function AxiomTemplatePage() {
                 <div className="space-y-2">
                   <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">Background</label>
                   <div className="flex gap-2">
-                    <label className="flex-1 flex items-center justify-center gap-2 cursor-pointer bg-white/5 hover:bg-white/10 border border-dashed border-white/10 rounded-lg h-10 transition-all group overflow-hidden relative">
+                    <label className={cn(
+                      "flex-1 flex items-center justify-center gap-2 cursor-pointer border border-dashed rounded-lg h-10 transition-all group overflow-hidden relative",
+                      isGlobalDark ? "bg-white/5 hover:bg-white/10 border-white/10" : "bg-white hover:bg-neutral-950 border-slate-300"
+                    )}>
                       {bgFile ? (
                         isVideo ? <div className="text-green-500 text-[10px] font-bold">VIDEO</div> : <img src={bgFile} className="w-full h-full object-cover opacity-50" />
                       ) : (
@@ -221,7 +251,10 @@ export default function AxiomTemplatePage() {
                 <div className="space-y-2">
                   <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">Profile Pic</label>
                   <div className="flex gap-2">
-                    <label className="flex-1 flex items-center justify-center gap-2 cursor-pointer bg-white/5 hover:bg-white/10 border border-dashed border-white/10 rounded-lg h-10 transition-all group overflow-hidden relative">
+                    <label className={cn(
+                      "flex-1 flex items-center justify-center gap-2 cursor-pointer border border-dashed rounded-lg h-10 transition-all group overflow-hidden relative",
+                      isGlobalDark ? "bg-white/5 hover:bg-white/10 border-white/10" : "bg-white hover:bg-neutral-950 border-slate-300"
+                    )}>
                       {profileImage ? (
                         <>
                           <Upload size={14} className="text-green-500" />
@@ -248,16 +281,6 @@ export default function AxiomTemplatePage() {
               <div className="space-y-3 md:space-y-4">
                 {/* Username and Token Input */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div className="space-y-1">
-                    <label className="text-[10px] font-bold text-gray-500 uppercase">Username</label>
-                    <input
-                      type="text"
-                      value={data.username}
-                      onChange={(e) => setData({ ...data, username: e.target.value })}
-                      className="w-full bg-black border border-white/10 rounded px-3 py-2 text-sm text-white focus:border-green-500 outline-none"
-                    />
-                  </div>
-
                   <div className="space-y-2">
                     <div className="flex justify-between items-center flex-wrap gap-1">
                       <label className="text-[10px] font-bold text-gray-500 uppercase">Token Input</label>
@@ -269,7 +292,7 @@ export default function AxiomTemplatePage() {
                       type="text"
                       value={data.pair}
                       onChange={(e) => handlePairChange(e.target.value)}
-                      className="w-full bg-black border border-white/10 rounded px-3 py-2 text-sm text-white focus:border-green-500 outline-none placeholder:text-gray-700"
+                      className={cn("w-full border rounded px-3 py-2 text-sm outline-none transition-colors placeholder:text-gray-500", isGlobalDark ? "bg-black border-white/10 text-white focus:border-green-500 placeholder:text-gray-700" : "bg-white border-slate-200 text-slate-900 focus:border-blue-500")}
                       placeholder={searchMode === 'ticker' ? "e.g. WIF, BONK" : "Paste Contract..."}
                     />
                   </div>
@@ -282,7 +305,7 @@ export default function AxiomTemplatePage() {
                     type="text"
                     value={data.roi}
                     onChange={(e) => handleNumberInput('roi', e.target.value)}
-                    className="w-full bg-black border border-white/10 rounded px-3 py-2 text-white text-base md:text-lg font-bold font-mono focus:border-green-500 outline-none"
+                    className={cn("w-full border rounded px-3 py-2 text-base md:text-lg font-bold font-mono outline-none transition-colors", isGlobalDark ? "bg-black border-white/10 text-white focus:border-green-500" : "bg-white border-slate-200 text-slate-900 focus:border-blue-500")}
                   />
                 </div>
 
@@ -293,7 +316,7 @@ export default function AxiomTemplatePage() {
                     type="text"
                     value={data.pnlPercent}
                     onChange={(e) => setData({ ...data, pnlPercent: e.target.value })}
-                    className="w-full bg-black border border-white/10 rounded px-3 py-2 text-green-400 font-mono text-sm focus:border-green-500 outline-none"
+                    className={cn("w-full border rounded px-3 py-2 font-mono text-sm outline-none transition-colors", isGlobalDark ? "bg-black border-white/10 text-green-400 focus:border-green-500" : "bg-white border-slate-200 text-green-600 focus:border-blue-500")}
                   />
                 </div>
 
@@ -305,7 +328,7 @@ export default function AxiomTemplatePage() {
                       type="text"
                       value={data.bought}
                       onChange={(e) => handleNumberInput('bought', e.target.value)}
-                      className="w-full bg-black border border-white/10 rounded px-3 py-2 text-sm text-white font-mono focus:border-green-500 outline-none"
+                      className={cn("w-full border rounded px-3 py-2 text-sm font-mono outline-none transition-colors", isGlobalDark ? "bg-black border-white/10 text-white focus:border-green-500" : "bg-white border-slate-200 text-slate-900 focus:border-blue-500")}
                     />
                   </div>
                   <div className="space-y-1">
@@ -314,7 +337,7 @@ export default function AxiomTemplatePage() {
                       type="text"
                       value={data.position}
                       onChange={(e) => handleNumberInput('position', e.target.value)}
-                      className="w-full bg-black border border-white/10 rounded px-3 py-2 text-sm text-white font-mono focus:border-green-500 outline-none"
+                      className={cn("w-full border rounded px-3 py-2 text-sm font-mono outline-none transition-colors", isGlobalDark ? "bg-black border-white/10 text-white focus:border-green-500" : "bg-white border-slate-200 text-slate-900 focus:border-blue-500")}
                     />
                   </div>
                 </div>
@@ -328,7 +351,7 @@ export default function AxiomTemplatePage() {
                       type="text"
                       value={data.handle.replace(/^@/, '')}
                       onChange={(e) => setData({ ...data, handle: '@' + e.target.value.replace(/@/g, '') })}
-                      className="w-full bg-black border border-white/10 rounded px-3 pl-7 py-2 text-sm text-white focus:border-green-500 outline-none"
+                      className={cn("w-full border rounded px-3 pl-7 py-2 text-sm outline-none transition-colors", isGlobalDark ? "bg-black border-white/10 text-white focus:border-green-500" : "bg-white border-slate-200 text-slate-900 focus:border-blue-500")}
                     />
                   </div>
                 </div>
@@ -486,6 +509,7 @@ export default function AxiomTemplatePage() {
           </div>
         </div>
       </div>
-    </div>
+      <SupportPopup isOpen={showSupportPopup} onClose={() => setShowSupportPopup(false)} />
+    </main>
   );
 }

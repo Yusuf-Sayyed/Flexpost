@@ -43,7 +43,7 @@ export default function TemplatesClient() {
 
     return (
         <main className={cn(
-            "min-h-screen relative isolation-auto transition-colors duration-300 overflow-hidden",
+            "min-h-screen relative isolation-auto transition-colors duration-500 overflow-hidden",
             isDark ? "bg-[#171717]" : "bg-[#EAF2FF]"
         )}>
             {/* Background with Grid */}
