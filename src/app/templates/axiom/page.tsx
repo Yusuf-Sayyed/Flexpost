@@ -2,7 +2,7 @@
 
 import { useState, useRef, ChangeEvent, useEffect } from "react";
 import { toPng } from "html-to-image";
-import { Upload, Download, RefreshCw, X, Image as ImageIcon, Search, FileCode, ChevronLeft, SettingsIcon } from "lucide-react";
+import { Upload, Download, RefreshCw, X, Image as ImageIcon, Search, FileCode, ChevronLeft, SettingsIcon, Sun, Moon } from "lucide-react";
 import { toast } from "sonner";
 import Link from "next/link";
 import { SupportPopup } from '@/components/layout/SupportPopup';
@@ -34,7 +34,7 @@ export default function AxiomTemplatePage() {
   const [showSupportPopup, setShowSupportPopup] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
   const debounceRef = useRef<NodeJS.Timeout | null>(null);
-  const { globalTheme } = usePostStore();
+  const { globalTheme, toggleGlobalTheme } = usePostStore();
   const isDark = globalTheme === 'dark';
   const isGlobalDark = globalTheme === 'dark';
   const [isExporting, setIsExporting] = useState(false);
@@ -193,7 +193,7 @@ export default function AxiomTemplatePage() {
         </div>
 
         {/* Center Title */}
-        <span className="text-sm font-bold tracking-widest uppercase opacity-40 hidden sm:block text-white">
+        <span className="text-sm font-bold tracking-widest uppercase opacity-40 hidden sm:block">
           Studio
         </span>
 
@@ -216,7 +216,20 @@ export default function AxiomTemplatePage() {
                 </div>
                 <h1 className={cn("text-xl font-bold tracking-tight", isGlobalDark ? "text-white" : "text-slate-900")}>Settings</h1>
               </div>
-              <span className="px-2 py-1 rounded bg-green-500/10 text-green-400 text-xs font-mono font-bold">Beta</span>
+              <div className="flex items-center gap-2">
+                <span className="px-2 py-1 rounded bg-green-500/10 text-green-400 text-xs font-mono font-bold">Beta</span>
+                <button
+                  onClick={toggleGlobalTheme}
+                  className={cn(
+                    "p-2 rounded-full transition-colors",
+                    isGlobalDark
+                      ? "text-gray-400 hover:bg-white/10 hover:text-white"
+                      : "text-gray-500 hover:bg-black/5 hover:text-black"
+                  )}
+                >
+                  {isGlobalDark ? <Sun size={16} /> : <Moon size={16} />}
+                </button>
+              </div>
             </div>
 
             <div className="space-y-4 md:space-y-6">
