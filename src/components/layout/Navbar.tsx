@@ -16,7 +16,7 @@ export const Navbar = () => {
   if (pathname === '/create') {
     return null;
   }
-  if (['/create', '/report', '/privacy', '/terms'].includes(pathname)) {
+  if (['/create', '/report', '/privacy', '/terms', '/templates', '/templates/axiom'].includes(pathname)) {
     return null;
   }
   return (

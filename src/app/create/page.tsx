@@ -106,7 +106,7 @@ export default function CreatePage() {
         <div className="flex items-center gap-2">
 
           {/* 1. The Icon (Clickable Link) */}
-          <Link href="/" className="group">
+          <Link href="/templates" className="group">
             <div className={cn(
               "p-1.5 rounded-full transition-colors",
               // 👇 Applied the specific hover animation styles

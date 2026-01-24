@@ -19,7 +19,7 @@ export default function Home() {
       {/* 1. Hero Section */}
       <Hero />
 
-{/* 2. Video Demo Section */}
+      {/* 2. Video Demo Section */}
       <section className="pb-32 px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto">
 
