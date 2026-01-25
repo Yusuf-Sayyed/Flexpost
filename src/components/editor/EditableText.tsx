@@ -11,7 +11,7 @@ interface EditableTextProps {
   placeholder?: string;
 }
 
-export const EditableText = ({ value, onChange, onBlur, onPaste, onKeyDown,className, placeholder }: EditableTextProps) => {
+export const EditableText = ({ value, onChange, onBlur, onPaste, onKeyDown, className, placeholder }: EditableTextProps) => {
   return (
     <TextareaAutosize
       value={value}

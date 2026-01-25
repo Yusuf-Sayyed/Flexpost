@@ -2,89 +2,119 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
 interface TwitterState {
-  theme: 'dark' | 'light'
-  globalTheme: 'dark' | 'light'
-  verifiedType: 'blue' | 'yellow';
-  displayName: string
-  username: string
-  content: string
-  timestamp: string
-  date: string
-  avatarUrl: string | null
-  postImageUrl: string | null
-  showImage: boolean // 👈 1. Added this type
-  postImage2Url: string | null
-  showImage2: boolean
-  customBadgeUrl: string | null
-  showCustomBadge: boolean
-  isVerified: boolean
-  stats: {
-    views: string
-    likes: string
-    retweets: string
-    replies: string
-    bookmarks: string
-  }
+    theme: 'dark' | 'light'
+    globalTheme: 'dark' | 'light'
+    verifiedType: 'blue' | 'yellow';
+    displayName: string
+    username: string
+    content: string
+    timestamp: string
+    date: string
+    avatarUrl: string | null
+    postImageUrl: string | null
+    showImage: boolean // 👈 1. Added this type
+    postImage2Url: string | null
+    showImage2: boolean
+    customBadgeUrl: string | null
+    showCustomBadge: boolean
+    isVerified: boolean
+    stats: {
+        views: string
+        likes: string
+        retweets: string
+        replies: string
+        bookmarks: string
+    }
+    linkedinFollowText?: string
+    linkedinConnectionDegree?: string
+    linkedinDisplayName?: string
+    linkedinUsername?: string
+    linkedinContent?: string
+    linkedinAvatarUrl?: string | null
+    linkedinPostImageUrl?: string | null
+    linkedinShowImage?: boolean
+    linkedinPostImage2Url?: string | null
+    linkedinShowImage2?: boolean
+    linkedinIsVerified?: boolean
+    linkedinCustomBadgeUrl?: string | null
+    linkedinShowCustomBadge?: boolean
+    linkedinTimestamp?: string
 }
 
 interface Actions {
-  updateField: (field: keyof TwitterState, value: any) => void
-  updateStat: (stat: keyof TwitterState['stats'], value: string) => void
-  toggleVerified: () => void
-  toggleTheme: () => void
-  toggleGlobalTheme: () => void
-  toggleVerifiedType: () => void;
-  reset: () => void
+    updateField: (field: keyof TwitterState, value: any) => void
+    updateStat: (stat: keyof TwitterState['stats'], value: string) => void
+    toggleVerified: () => void
+    toggleTheme: () => void
+    toggleGlobalTheme: () => void
+    toggleVerifiedType: () => void;
+    reset: () => void
 }
 
 const initialState: TwitterState = {
-  theme: 'dark',
-  globalTheme: 'dark',
-  verifiedType: 'blue',
-  displayName: 'yusuf',
-  username: 'yusuf_sdev',
-  content: 'Hello world! 👋\n\nThis is a preview of what your post could look like.\n\nYou can click right here to edit this text,\n\n.Add upto 2 images side by side',
-  timestamp: '5:00 AM',
-  date: 'Oct 6, 2003',
-  avatarUrl: null,
-  postImageUrl: null,
-  showImage: false,
-  postImage2Url: null,
-  showImage2: false,
-  customBadgeUrl: null,
-  showCustomBadge: false,
-  isVerified: false,
-  stats: {
-    views: '748',
-    likes: '458',
-    retweets: '238',
-    replies: '158',
-    bookmarks: '43'
-  }
+    theme: 'dark',
+    globalTheme: 'dark',
+    verifiedType: 'blue',
+    displayName: 'yusuf',
+    username: 'yusuf_sdev',
+    content: 'Hello world! 👋\n\nThis is a preview of what your post could look like.\n\nYou can click right here to edit this text,\n\n.Add upto 2 images side by side',
+    timestamp: '5:00 AM',
+    date: 'Oct 6, 2003',
+    avatarUrl: null,
+    postImageUrl: null,
+    showImage: false,
+    postImage2Url: null,
+    showImage2: false,
+    customBadgeUrl: null,
+    showCustomBadge: false,
+    isVerified: false,
+    stats: {
+        views: '748',
+        likes: '458',
+        retweets: '10',
+        replies: '10',
+        bookmarks: '43'
+    },
+    linkedinFollowText: '+ Follow',
+    linkedinConnectionDegree: '2nd',
+
+    // LinkedIn Defaults
+    linkedinDisplayName: 'name',
+    linkedinUsername: 'Developer',
+    linkedinContent: '.....',
+    linkedinAvatarUrl: null,
+    linkedinPostImageUrl: null,
+    linkedinShowImage: false,
+    linkedinPostImage2Url: null,
+    linkedinShowImage2: false,
+    linkedinIsVerified: false,
+    linkedinCustomBadgeUrl: null,
+    linkedinShowCustomBadge: false,
+    linkedinTimestamp: '3d'
 }
 
 export const usePostStore = create<TwitterState & Actions>()(
-  persist(
-    (set) => ({
-      ...initialState,
+    persist(
+        (set) => ({
+            ...initialState,
 
-      updateField: (field, value) => set((state) => ({ ...state, [field]: value })),
+            updateField: (field, value) => set((state) => ({ ...state, [field]: value })),
 
-      updateStat: (stat, value) =>
-        set((state) => ({
-          stats: { ...state.stats, [stat]: value }
-        })),
+            updateStat: (stat, value) =>
+                set((state) => ({
+                    stats: { ...state.stats, [stat]: value }
+                })),
 
-      toggleVerified: () => set((state) => ({ isVerified: !state.isVerified })),
-      toggleTheme: () => set((state) => ({ theme: state.theme === 'dark' ? 'light' : 'dark' })),
-      toggleGlobalTheme: () => set((state) => ({ globalTheme: state.globalTheme === 'dark' ? 'light' : 'dark' })),
+            toggleVerified: () => set((state) => ({ isVerified: !state.isVerified })),
+            toggleTheme: () => set((state) => ({ theme: state.theme === 'dark' ? 'light' : 'dark' })),
+            toggleGlobalTheme: () => set((state) => ({ globalTheme: state.globalTheme === 'dark' ? 'light' : 'dark' })),
 
-      toggleVerifiedType: () => set((state) => ({
-        verifiedType: state.verifiedType === 'blue' ? 'yellow' : 'blue'
-      })),
+            toggleVerifiedType: () => set((state) => ({
+                verifiedType: state.verifiedType === 'blue' ? 'yellow' : 'blue'
+            })),
 
-      reset: () => set(initialState)
-    }),
-    { name: 'flexpost storage' }
-  )
+            reset: () => set(initialState)
+        }),
+        { name: 'flexpost storage' }
+    )
 )

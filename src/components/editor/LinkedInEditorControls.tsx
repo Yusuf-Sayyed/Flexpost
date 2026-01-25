@@ -6,14 +6,12 @@ import {
     Stamp,
     Moon,
     Sun,
-    Palette,
     Image as ImageIcon,
     CheckCircle2,
-    XCircle,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-export const EditorControls = () => {
+export const LinkedInEditorControls = () => {
     const state = usePostStore();
 
     // 1. Get Global Theme State
@@ -84,13 +82,13 @@ export const EditorControls = () => {
                         Identity
                     </label>
 
-                    {/* Verified Toggle */}
+                    {/* Premium Badge Toggle */}
                     <div className="flex flex-col gap-2">
                         <button
-                            onClick={state.toggleVerified}
+                            onClick={() => state.updateField('linkedinIsVerified', !state.linkedinIsVerified)}
                             className={cn(
                                 "group flex w-full items-center justify-between rounded-xl border px-4 py-3 text-sm font-medium transition-all shadow-md",
-                                state.isVerified
+                                state.linkedinIsVerified
                                     ? "text-blue-500 border-blue-500/30 bg-blue-500/10"
                                     : (isGlobalDark
                                         ? "bg-white/5 border-white/10 text-slate-300 hover:border-neutral-700 hover:text-white hover:bg-white/10"
@@ -98,70 +96,11 @@ export const EditorControls = () => {
                             )}
                         >
                             <div className="flex items-center gap-3">
-                                <BadgeCheck size={18} className={state.isVerified ? "fill-current text-blue-500" : ""} />
-                                <span>Verified Badge</span>
+                                <BadgeCheck size={18} className={state.linkedinIsVerified ? "fill-current text-blue-500" : ""} />
+                                <span>Premium Badge</span>
                             </div>
-                            {state.isVerified ? <CheckCircle2 size={18} /> : <div className={cn("h-4 w-4 rounded-full border", isGlobalDark ? "border-slate-600" : "border-slate-300")} />}
+                            {state.linkedinIsVerified ? <CheckCircle2 size={18} /> : <div className={cn("h-4 w-4 rounded-full border", isGlobalDark ? "border-slate-600" : "border-slate-300")} />}
                         </button>
-
-                        {/* Sub-option: Color */}
-                        <div className={cn(
-                            "overflow-hidden transition-all duration-300 ease-in-out pl-4 border-l-2",
-                            isGlobalDark ? "border-white/10" : "border-slate-100",
-                            state.isVerified ? "max-h-20 opacity-100 mt-1" : "max-h-0 opacity-0 mt-0"
-                        )}>
-                            <button
-                                onClick={state.toggleVerifiedType}
-                                className={cn(
-                                    "flex w-full items-center gap-3 rounded-lg border px-4 py-2.5 text-sm font-medium transition-all shadow-sm",
-                                    state.verifiedType === 'yellow'
-                                        ? (isGlobalDark
-                                            ? "border-yellow-500/50 bg-yellow-500/20 text-yellow-200 hover:bg-yellow-500/30"
-                                            : "border-yellow-200 bg-yellow-50 text-yellow-700 hover:bg-yellow-100")
-                                        : (isGlobalDark
-                                            ? "border-sky-500/50 bg-blue-400 text-black hover:bg-blue-500"
-                                            : "border-sky-200 bg-blue-400 text-neutral-100 hover:bg-blue-500")
-                                )}
-                            >
-                                <Palette size={16} />
-                                <span>{state.verifiedType === 'yellow' ? 'Gold Check (Business)' : 'Blue Check (Person)'}</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    {/* Custom Badge Toggle */}
-                    <div className="flex flex-col gap-2">
-                        <button
-                            onClick={() => state.updateField('showCustomBadge', !state.showCustomBadge)}
-                            className={cn(
-                                "flex w-full items-center justify-between rounded-xl border px-4 py-3 text-sm font-medium transition-all shadow-md",
-                                state.showCustomBadge
-                                    ? "border-blue-500 text-blue-500 bg-blue-500/10"
-                                    : (isGlobalDark
-                                        ? "bg-white/5 border-white/10 text-slate-300 hover:border-neutral-700 hover:text-white hover:bg-white/10"
-                                        : "bg-white border-slate-200 text-slate-600 hover:border-neutral-100 hover:text-slate-900")
-                            )}
-                        >
-                            <div className="flex items-center gap-3">
-                                <Stamp size={18} />
-                                <span>Custom Icon</span>
-                            </div>
-                            {state.showCustomBadge && (
-                                <span className={cn("text-[10px] px-2 py-0.5 rounded font-bold uppercase tracking-wider bg-blue-500 text-white")}>
-                                    Active
-                                </span>
-                            )}
-                        </button>
-
-                        {/* Helper Note */}
-                        {state.showCustomBadge && (
-                            <div className="px-1 animate-in fade-in slide-in-from-top-1">
-                                <p className="text-[11px] font-medium text-blue-500/90 bg-blue-500/5 p-2 rounded-lg border border-blue-500/10 flex items-center gap-2">
-                                    <span className="text-lg">💡</span>
-                                    Click on the icon in the preview card to upload your image.
-                                </p>
-                            </div>
-                        )}
                     </div>
                 </div>
 
@@ -173,10 +112,10 @@ export const EditorControls = () => {
 
                     {/* Post Image Logic */}
                     <button
-                        onClick={() => state.updateField('showImage', !state.showImage)}
+                        onClick={() => state.updateField('linkedinShowImage', !state.linkedinShowImage)}
                         className={cn(
                             "flex w-full items-center justify-between rounded-xl border px-4 py-3 text-sm font-medium transition-all shadow-md",
-                            state.showImage
+                            state.linkedinShowImage
                                 ? "border-blue-500 text-blue-500 bg-blue-500/10"
                                 : (isGlobalDark
                                     ? "bg-white/5 border-white/10 text-slate-300 hover:border-neutral-700 hover:text-white hover:bg-white/10"
@@ -188,7 +127,7 @@ export const EditorControls = () => {
                             <span>Image (Left)</span>
                         </div>
 
-                        {state.showImage ? (
+                        {state.linkedinShowImage ? (
                             <CheckCircle2 size={18} className="text-blue-500" />
                         ) : (
                             <div className="flex items-center gap-1 text-slate-400 text-xs font-bold">
@@ -199,10 +138,10 @@ export const EditorControls = () => {
 
                     {/* Second Image Toggle */}
                     <button
-                        onClick={() => state.updateField('showImage2', !state.showImage2)}
+                        onClick={() => state.updateField('linkedinShowImage2', !state.linkedinShowImage2)}
                         className={cn(
                             "flex w-full items-center justify-between rounded-xl border px-4 py-3 text-sm font-medium transition-all shadow-md",
-                            state.showImage2
+                            state.linkedinShowImage2
                                 ? "border-blue-500 text-blue-500 bg-blue-500/10"
                                 : (isGlobalDark
                                     ? "bg-white/5 border-white/10 text-slate-300 hover:border-neutral-700 hover:text-white hover:bg-white/10"
@@ -214,7 +153,7 @@ export const EditorControls = () => {
                             <span>Image (Right)</span>
                         </div>
 
-                        {state.showImage2 ? (
+                        {state.linkedinShowImage2 ? (
                             <CheckCircle2 size={18} className="text-blue-500" />
                         ) : (
                             <div className="flex items-center gap-1 text-slate-400 text-xs font-bold">
