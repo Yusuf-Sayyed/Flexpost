@@ -79,9 +79,9 @@ const initialState: TwitterState = {
     linkedinConnectionDegree: '2nd',
 
     // LinkedIn Defaults
-    linkedinDisplayName: 'name',
-    linkedinUsername: 'Developer',
-    linkedinContent: '.....',
+    linkedinDisplayName: '',
+    linkedinUsername: '',
+    linkedinContent: '',
     linkedinAvatarUrl: null,
     linkedinPostImageUrl: null,
     linkedinShowImage: false,
@@ -90,7 +90,7 @@ const initialState: TwitterState = {
     linkedinIsVerified: false,
     linkedinCustomBadgeUrl: null,
     linkedinShowCustomBadge: false,
-    linkedinTimestamp: '3d'
+    linkedinTimestamp: ''
 }
 
 export const usePostStore = create<TwitterState & Actions>()(
