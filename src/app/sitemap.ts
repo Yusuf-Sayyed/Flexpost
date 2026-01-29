@@ -1,38 +1,39 @@
-// app/sitemap.ts
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const baseUrl = 'https://www.flexpost.xyz'
+  const currentDate = new Date().toISOString()
 
   return [
     {
-      url: 'https://www.flexpost.xyz/',
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 1,
+      url: baseUrl,
+      lastModified: currentDate,
+      changeFrequency: 'daily',
+      priority: 1.0,
     },
     {
-      url: 'https://www.flexpost.xyz/create',
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
+      url: `${baseUrl}/create`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
       priority: 0.9,
     },
     {
-      url: `https://www.flexpost.xyz/privacy`,
-      lastModified: new Date(),
+      url: `${baseUrl}/privacy`,
+      lastModified: currentDate,
       changeFrequency: 'yearly',
-      priority: 0.5,
+      priority: 0.3,
     },
     {
-      url: `https://www.flexpost.xyz/report`,
-      lastModified: new Date(),
+      url: `${baseUrl}/report`,
+      lastModified: currentDate,
       changeFrequency: 'yearly',
-      priority: 0.5,
+      priority: 0.3,
     },
     {
-      url: `https://www.flexpost.xyz/terms`,
-      lastModified: new Date(),
+      url: `${baseUrl}/terms`,
+      lastModified: currentDate,
       changeFrequency: 'yearly',
-      priority: 0.5,
-    }
+      priority: 0.3,
+    },
   ]
 }
