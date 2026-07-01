@@ -80,6 +80,9 @@ export default function CreatePage() {
       link.click();
       toast.success("Image downloaded successfully!", { id: toastId });
 
+      // Track the export click using real numbers
+      fetch('/api/analytics', { method: 'POST' }).catch(() => {});
+
       // Show Support Popup after a short delay
       setTimeout(() => setShowSupportPopup(true), 1000);
     } catch (err) {

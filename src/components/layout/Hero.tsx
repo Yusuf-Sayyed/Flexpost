@@ -1,6 +1,7 @@
 'use client';
 
-import { ArrowRight, Sparkles, CheckCircle2, LayoutTemplate } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { ArrowRight, Sparkles, CheckCircle2, LayoutTemplate, Star } from 'lucide-react';
 import { usePostStore } from '@/store/usePostStore';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
@@ -8,6 +9,18 @@ import Link from 'next/link';
 export const Hero = () => {
   const { globalTheme } = usePostStore();
   const isDark = globalTheme === 'dark';
+
+  const [userCount, setUserCount] = useState<number>(0);
+
+  useEffect(() => {
+    // Fetch the real count from our local file API
+    fetch('/api/analytics')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.clicks !== undefined) setUserCount(data.clicks);
+      })
+      .catch((err) => console.error('Failed to load count', err));
+  }, []);
 
   const scrollToEditor = () => {
     const editor = document.getElementById('design-studio');
@@ -64,6 +77,9 @@ export const Hero = () => {
           {/* Primary Button */}
           <Link
             href="/create"
+            onClick={() => {
+              fetch('/api/analytics', { method: 'POST' }).catch(() => { });
+            }}
             className={cn(
               "flex items-center gap-2 px-8 py-4 text-base font-bold rounded-full transition-all shadow-xl hover:scale-105",
               isDark
@@ -91,21 +107,67 @@ export const Hero = () => {
         </div>
 
         {/* Social Proof / Features */}
-        <div className={cn(
-          "flex flex-wrap justify-center gap-x-8 gap-y-4 text-sm font-medium transition-colors",
-          isDark ? "text-slate-400" : "text-slate-500"
-        )}>
-          <div className="flex items-center gap-2">
-            <CheckCircle2 size={16} className="text-green-500" />
-            <span>No Login Required</span>
+        <div className="flex flex-col items-center gap-6 mt-4">
+          <div className={cn(
+            "flex flex-wrap justify-center gap-x-8 gap-y-4 text-sm font-medium transition-colors",
+            isDark ? "text-slate-400" : "text-slate-500"
+          )}>
+            <div className="flex items-center gap-2">
+              <CheckCircle2 size={16} className="text-green-500" />
+              <span>No Login Required</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <CheckCircle2 size={16} className="text-green-500" />
+              <span>High-Res Export</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <CheckCircle2 size={16} className="text-green-500" />
+              <span>100% Free</span>
+            </div>
           </div>
-          <div className="flex items-center gap-2">
-            <CheckCircle2 size={16} className="text-green-500" />
-            <span>High-Res Export</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <CheckCircle2 size={16} className="text-green-500" />
-            <span>100% Free</span>
+
+          {/* User Counter / Avatar Group */}
+          <div className={cn(
+            "flex items-center gap-3 sm:gap-4 py-2 px-4 sm:py-2.5 sm:px-6 rounded-full border backdrop-blur-md transition-all duration-300 shadow-xl hover:scale-105 hover:shadow-2xl cursor-default",
+            isDark
+              ? "bg-slate-900/40 border-white/10 shadow-black/20 hover:bg-slate-900/60"
+              : "bg-white/40 border-white/60 shadow-blue-900/5 hover:bg-white/60"
+          )}>
+            <div className="flex -space-x-2">
+              {[
+                "https://i.pravatar.cc/100?img=1",
+                "https://i.pravatar.cc/100?img=2",
+                "https://i.pravatar.cc/100?img=3",
+                "https://i.pravatar.cc/100?img=4",
+                "https://i.pravatar.cc/100?img=5"
+              ].map((src, i) => (
+                <img
+                  key={i}
+                  className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border-2 border-white dark:border-slate-900 object-cover"
+                  src={src}
+                  alt={`User avatar ${i + 1}`}
+                />
+              ))}
+            </div>
+            <div className="flex flex-col items-start">
+              <div className="flex items-center gap-1">
+                {[1, 2, 3, 4, 5].map((_, i) => (
+                  <Star 
+                    key={i} 
+                    className={cn(
+                      "w-3.5 h-3.5 text-yellow-400",
+                      i < 4 ? "fill-current" : "fill-transparent opacity-50"
+                    )} 
+                  />
+                ))}
+              </div>
+              <span className={cn(
+                "text-[10px] sm:text-xs font-semibold tabular-nums",
+                isDark ? "text-slate-300" : "text-slate-700"
+              )}>
+                Trusted by {userCount.toLocaleString()}+ creators
+              </span>
+            </div>
           </div>
         </div>
 
